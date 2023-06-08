@@ -1,0 +1,625 @@
+---
+title: "From Basic to Intermediate R"
+author: "Atsushi Kanayama"
+date: "2023-06-08"
+output: html_document
+runtime: shiny
+---
+
+# Introduction to R and RStudio
+
+R is an open-source programming language renowned for its powerful statistical analysis, data manipulation, and graphical capabilities. Coupled with RStudio, an Integrated Development Environment (IDE) designed to streamline the R programming experience, users have access to robust tools for coding, debugging, and project management.
+
+## Steps for Installing R and RStudio
+
+Here are the steps to download and install R and RStudio:
+
+### Step 1: Installing R
+
+1. Navigate to the official R website (https://www.r-project.org/).
+2. Find the download page and select the R version compatible with your operating system.
+3. Once downloaded, run the installer to complete the R installation.
+
+### Step 2: Installing RStudio
+
+1. Go to the RStudio website (https://www.rstudio.com).
+2. Locate the download page and select the RStudio version that matches your operating system.
+3. After downloading, run the installer to finalize the RStudio installation.
+
+Upon successful installation, RStudio is ready to be launched for use.
+
+# Chapter 2: R Language Basics
+
+## Understanding Data Types in R
+
+R supports a multitude of data types, including:
+
+- Numeric: Represents real or integer numbers. Examples: 3.14 (real), 5 (integer).
+- Character: Encapsulates text or character sequences. Strings must be encased within single ('') or double ("") quotes. Examples: 'Hello World!' and "R is awesome!".
+- Logical: Represents logical values (TRUE or FALSE), often used for conditional statements and logical operations.
+
+## Working with Variables and Objects in R
+
+Variables in R store values or objects, such as data or functions. The syntax for creating a variable involves assigning a value to a chosen variable name using "<-":
+
+```{r}
+# Define a numeric variable named x and assign the value 10 to it
+x <- 10
+
+# Define a character variable named message and assign the value "Hello, R!" to it
+message <- "Hello, R!"
+```
+
+Operators and functions facilitate the manipulation of variables, as illustrated below:
+
+```{r}
+# Add two numeric variables together
+x <- 5
+y <- 3
+z <- x + y  # Result: z is 8
+
+# Concatenate two character variables
+message1 <- "Hello"
+message2 <- "R!"
+result <- paste(message1, message2)  # Result: result is "Hello R!"
+```
+
+You can assign names to created variables for later reuse.
+
+To manipulate the values stored in variables, use operators and functions. For example, use the + operator for numeric addition:
+
+```{r}
+# Numeric addition
+x <- 5
+y <- 3
+z <- x + y
+```
+
+For string concatenation, use the paste() function:
+
+```{r}
+# String concatenation
+message1 <- "Hello"
+message2 <- "R!"
+result <- paste(message1, message2)
+```
+
+# Chapter 3: Exploring Data Structures in R
+
+## Types of Data Structures in R
+
+R provides various data structures to accommodate different data types:
+
+- Vector: A one-dimensional structure housing elements of a single data type. Create vectors using the c() function.
+
+```{r}
+# Define a numeric vector with elements from 1 to 5
+numeric_vector <- c(1, 2, 3, 4, 5)
+
+# Define a character vector with three fruit names
+character_vector <- c("apple", "banana", "orange")
+```
+
+- Matrix: A two-dimensional structure organized into rows and columns. All elements within a matrix share the same data type. Matrices are generated using the matrix() function.
+
+```{r}
+# Define a matrix with 2 rows and 3 columns
+matrix_data <- matrix(c(1, 2, 3, 4, 5, 6), nrow = 2, ncol = 3)
+```
+
+- List: A collection of elements, which may be of differing data types and lengths. Create lists using the list() function.
+
+```{r}
+# Define a list containing a numeric vector, a character vector, and a matrix
+list_data <- list(numeric_vector, character_vector, matrix_data)
+```
+
+- Data Frame: Resembling a table, this two-dimensional structure hosts columns of different data types. Generate data frames using the data.frame() function.
+
+```{r}
+# Define a data frame with three columns: name, age, and salary
+df <- data.frame(
+  name = c("Alice", "Bob", "Charlie"),
+  age = c(25, 30, 35),
+  salary = c(50000, 60000, 70000)
+)
+```
+
+## Operations on Data Structures in R
+
+The following operations provide flexibility for data manipulation in R:
+
+- Indexing: Indexes, starting from 1, are used to access specific elements within a data structure.
+
+```{r}
+# Access the third element in the numeric_vector
+numeric_vector[3] 
+
+# Access the element in the first row and second column of the matrix_data
+matrix_data[1, 2]  
+
+# Access the second element in the list_data
+list_data[[2]]
+
+# Access the "name" column in the df data frame
+df$name 
+```
+
+- Slicing: Extract a range of elements from a data structure by specifying start and end positions.
+
+```{r}
+# Extract the second to the fourth element from numeric_vector
+numeric_vector[2:4]  
+
+# Extract elements from the first to the second row, and second to the third column from matrix_data
+matrix_data[1:2, 2:3]  
+
+# Extract the second to the third element from list_data
+list_data[2:3]  
+
+# Extract the "name" and "age" columns from the first to the second row from df
+df[1:2, c("name", "age")] 
+```
+
+- Subsetting: Create subsets of a data structure based on specific conditions using logical operators (e.g., ==, >, <).
+
+```{r}
+# Extract elements greater than 3 from numeric_vector
+subset_vector <- numeric_vector[numeric_vector > 3]  
+
+# Extract elements greater than 3 from matrix_data
+subset_matrix <- matrix_data[matrix_data > 3] 
+
+# Extract elements with a length greater than 2 from list_data
+subset_list <- list_data[sapply(list_data, length) > 2] 
+
+# Extract rows from df where age is greater than 30
+subset_df <- df[df$age > 30, ] 
+```
+
+# Chapter 4: Control Structures in R
+
+## Conditional Statements in R
+
+Conditional statements provide decision-making capabilities to R programming.
+
+```{r}
+# Define a variable x and assign it the value 5
+x <- 5
+
+if (x > 0) {
+  # If x is greater than 0, print the following message
+  print("x is a positive number")
+} else {
+  # If x is less than or equal to 0, print the following message
+  print("x is zero or a negative number")
+}
+```
+
+## Loop Structures in R
+
+Loops in R are instrumental for executing a block of code repeatedly.
+
+```{r}
+# A for loop to print the numbers from 1 to 5
+for (i in 1:5) {
+  print(i)
+}
+
+# A while loop to print the numbers from 1 to 5
+j <- 1
+while (j <= 5) {
+  print(j)
+  j <- j + 1
+}
+```
+
+## Vectorized Operations in R
+
+R supports vectorized operations, enabling efficient computation without the need for loops.
+
+# Chapter 5: Functions in R
+
+## Built-in Functions in R
+
+R offers a wealth of built-in functions for diverse operations. Here's an illustration using the sum() function:
+
+```{r}
+# Define a numeric vector named numbers
+numbers <- c(1, 2, 3, 4, 5)
+
+# Use sum() to compute the total of numbers and assign it to total
+total <- sum(numbers)
+
+# Print the total
+print(total)
+```
+
+## Custom Functions in R
+
+R allows the creation of user-defined functions for custom operations. Below is an example of a function to calculate the square of a number:
+
+```{r}
+# Define a custom function to calculate the square of x
+square <- function(x) {
+  return(x^2)
+}
+
+# Use the custom function to calculate the square of 5
+result <- square(5)
+
+# Print the result
+print(result)
+```
+
+## Function Scoping and Environments in R
+
+Understanding function scoping is critical for correctly accessing and manipulating variables within functions in R. Every function in R has its own environment, and hence its own scope, which is the context that determines the visibility of variables.
+
+Consider the following example:
+
+```{r}
+# Global variable 'x'
+x <- 10
+
+my_function <- function() {
+  # Local variable 'x' inside the function scope
+  x <- 5
+  print(x)  # Accesses the variable 'x' within the function scope
+}
+
+my_function()  # Output: 5, as this is the 'x' inside the function
+print(x)       # Output: 10, as this is the global 'x'
+```
+
+This example demonstrates how the R language resolves variable names in a specific scope order: it first checks the function scope, then the global scope.
+
+# Chapter 6: Data Import and Export in R
+
+## Reading and Writing CSV Files in R
+
+CSV (Comma-Separated Values) files are a common data format in R. This comma-separated text file format represents each row as a single observation of a dataset and each column as a variable.
+
+Let's see how we can write the iris dataset to a CSV file and then read it back in.
+
+```{r}
+# Write the iris dataset to a CSV file
+# Here, write.csv function is used to write an R object (iris dataset) to a CSV file.
+write.csv(iris, file = "iris.csv")
+
+# Read the written CSV file
+# read.csv function reads a file in table format and creates a data frame from it.
+data <- read.csv("iris.csv")
+
+# head function returns the first part of data frame, 'data'
+head(data)
+```
+
+## Reading and Writing Excel Files in R
+
+Excel files are widely used in business environments, and R provides useful tools for dealing with them.
+
+I will show you how to read an Excel file using the readxl package. For this, I will use the sample data included in the package.
+
+```{r}
+# Load the readxl package
+# The library() function loads and attaches add-on packages.
+library(readxl)
+
+# Get the path of the Excel file
+# system.file function forms the path to a system file.
+path <- system.file("extdata", "datasets.xlsx", package = "readxl")
+
+# Read the Excel file
+# read_excel function reads an Excel file and creates a data frame.
+data <- read_excel(path)
+
+# Display the first part of the data frame
+head(data)
+```
+
+
+```{r}
+# Write the iris dataset to a CSV file
+# Here, write.csv function is used to write an R object (iris dataset) to a CSV file.
+write.csv(iris, file = "iris.csv")
+
+# Read the written CSV file
+# read.csv function reads a file in table format and creates a data frame from it.
+data <- read.csv("iris.csv")
+
+# head function returns the first part of data frame, 'data'
+head(data)
+```
+
+## Reading and Writing Excel Files in R
+
+Excel files are widely used in business environments, and R provides useful tools for dealing with them.
+
+I will show you how to read an Excel file using the readxl package. For this, I will use the sample data included in the package.
+
+```{r}
+# Load the readxl package
+# The library() function loads and attaches add-on packages.
+library(readxl)
+
+# Get the path of the Excel file
+# system.file function forms the path to a system file.
+path <- system.file("extdata", "datasets.xlsx", package = "readxl")
+
+# Read the Excel file
+# read_excel function reads an Excel file and creates a data frame.
+data <- read_excel(path)
+
+# Display the first part of the data frame
+head(data)
+```
+
+## Reading and Writing SAS, SPSS, STATA Files in 
+
+SAS, SPSS, STATA files are commonly used in the fields of social sciences and statistical analysis. In this section, I will explain how to read these files directly from the internet using the haven package in R. I will take a SAS file as an example.
+
+First, you need to install and load the haven package. The haven package is used to read data files from statistical software like SAS, SPSS, Stata into R.
+
+```{r}
+# Load the haven package
+library(haven)
+
+# Get the path of the SAS file
+path <- system.file("examples", "iris.sas7bdat", package = "haven")
+
+# Read the SAS file
+# read_sas function reads a SAS file and creates a data frame.
+data <- read_sas(path)
+
+# Display the first part of the data frame
+head(data)
+```
+
+Can you use actual table name so that I can create html markdown file?
+
+## Importing and Exporting Data from Databases
+
+R also provides a way to connect to various databases to retrieve or store data.
+
+/```{r}
+# Install RSQLite and RMySQL packages if they are not installed
+if (!require(RSQLite)) {
+  install.packages("RSQLite")
+}
+
+if (!require(RMySQL)) {
+  install.packages("RMySQL")
+}
+
+# Now we can load these libraries
+
+# Importing data from a SQLite database
+library(DBI)
+library(RSQLite)
+con <- dbConnect(RSQLite::SQLite(), "database.sqlite")
+data <- dbReadTable(con, "employees")
+
+# Exporting data to a MySQL database
+library(RMySQL)
+con <- dbConnect(RMySQL::MySQL(), host = "localhost", user = "your_mysql_username", password = "your_mysql_password", dbname = "test_db")
+dbWriteTable(con, "employees", data)
+/```
+
+In the example above, the RSQLite and RMySQL packages are used to connect to SQLite and MySQL databases, respectively, to import and export data.
+
+# Chapter 7: Package Usage in R
+
+## Installing and Loading Packages in R
+
+Packages in R extend the base functionalities of R, providing additional functions, data, and documentation. Here is how you can install and load a package in R:
+
+```{r}
+# Installing the ggplot2 package in R
+if (!require(ggplot2)) {
+  install.packages("ggplot2")
+  
+  # Load the package again after installation
+library(ggplot2)
+  } else {
+  # Package is already installed, so just load it
+  library(ggplot2)
+}
+```
+
+In the example above, the RSQLite and RMySQL packages are used to connect to SQLite and MySQL databases, respectively, to import and export data.
+
+Please replace "your_mysql_username" and "your_mysql_password" with your actual MySQL username and password.
+
+## Overview of Key Packages (ggplot2, dplyr, tidyverse, etc.)
+
+Several key packages in R, like ggplot2 for data visualization, dplyr for data manipulation and tidyverse for data science workflows, extend R's functionality. 
+
+# Chapter 8: Data Preprocessing in R
+
+## Data Cleaning (Handling Missing Values, Outliers, Inappropriate Data Types, etc.)
+
+Data preprocessing is a critical step in preparing data for analysis. It includes handling missing values, outliers, and inappropriate data types.
+
+/```{r}
+# Handling missing values in R
+clean_data <- na.omit(data)
+
+# Handling outliers in R
+/clean_data <- data[!(data$variable > threshold), ]
+```
+
+In the first line, the 'na.omit' function is used to remove missing values. In the second line, a logical condition is used to filter out outliers in the data.
+
+## Data Transformation (Creating New Variables, Recoding Variables, etc.)
+
+Data transformation involves creating new variables and recoding existing ones.
+
+/```{r}
+# Creating a new variable in R
+data$new_variable <- data$variable1 + data$variable2
+
+# Recoding a variable in R
+data$recoded_variable <- ifelse(data$variable > threshold, "high", "low")
+/```
+
+In the first line, a new variable is created by adding two existing variables. In the second line, 'ifelse' function is used to recode an existing variable based on a certain condition.
+
+# Chapter 9: Data Visualization in R
+
+## Using Basic Plotting Functions in R
+
+R provides several basic plotting functions for data visualization. Here is an example:
+
+/```{r}
+# Remove rows with missing values
+complete_rows <- complete.cases(data$variable1, data$variable2)
+clean_data <- data[complete_rows, ]
+
+# Create scatter plot
+plot(clean_data$variable1, clean_data$variable2)
+/```
+
+In the example above, the 'plot' function is used to create a scatter plot between 'variable1' and 'variable2'.
+
+## Advanced Visualization with ggplot2
+
+The 'ggplot2' package in R provides more advanced and flexible tools for data visualization.
+
+/```{r}
+# Creating a bar chart with ggplot2 in R
+library(ggplot2)
+ggplot(data, aes(x = category, fill = group)) + geom_bar()
+/```
+
+In the example above, a bar chart is created using the 'ggplot' function from the 'ggplot2' package.
+
+# Chapter 10: Basic Statistical Analysis in R
+
+## Descriptive Statistics (Mean, Median, Standard Deviation, etc.)
+
+Descriptive statistics summarize the main features of a dataset. 
+
+```{r}
+# Calculating mean, median, and standard deviation in R
+mean_value <- mean(data$variable)
+median_value <- median(data$variable)
+sd_value <- sd(data$variable)
+```
+
+In the example above, 'mean', 'median', and 'sd' functions are used to calculate the mean, median, and standard deviation of a variable, respectively.
+
+## Inferential Statistics (t-tests, ANOVA, Correlation, Regression, etc.)
+
+Inferential statistics allow you to make predictions or generalizations about a population based on a sample. 
+
+# Chapter 11: Troubleshooting in R
+
+## Understanding Error Messages and Debugging in R
+
+Understanding how to interpret error messages and debug your code is crucial while working with R.
+
+/```{r}
+# An example of an error message in R
+x <- "10"
+y <- 5
+result <- x + y
+/```
+
+In the example above, the attempt to add a string ('x') with a numeric value ('y') results in an error.
+
+## Utilizing Help Functions and Online Resources in R
+
+R provides extensive documentation and online resources to assist with troubleshooting. 
+
+```{r}
+# Accessing help documentation in R
+?sum
+```
+
+The '?' symbol followed by the function name displays the documentation for that function.
+
+# Chapter 12: Advanced R Programming Topics
+
+## S3 and S4 Object-Oriented Systems in R
+
+R supports object-oriented programming through S3 and S4 systems. 
+
+```{r}
+# Defining and using an S3 object in R
+my_object <- structure(list(data = data, label = "My Object", class = "myclass"))
+
+# Accessing properties of an S3 object in R
+print(my_object$data)
+print(my_object$label)
+```
+
+In the example above, an S3 object is created using the 'structure' function, and its properties are accessed using the '$' operator.
+
+## Functional Programming (apply Functions, purrr Package, etc.) in R
+
+R facilitates functional programming through various functions and packages. 
+
+```{r}
+# Applying a function to a list using 'lapply' in R
+my_list <- list(a = 1:5, b = 6:10, c = 11:15)
+result <- lapply(my_list, sum)
+print(result)
+```
+
+In the example above, the 'lapply' function is used to apply the 'sum' function to each element in the list.
+
+# Chapter 13: Report Generation and Interactive Applications with RMarkdown and Shiny
+
+## Report Generation with RMarkdown
+
+RMarkdown allows you to create dynamic reports that combine code, narrative text, and visualizations. 
+
+/```{r}
+# Generating an HTML report with RMarkdown
+---
+title: "My Report"
+output: html_document
+---
+
+# Section 1
+
+This is the content of section 1.
+
+# Section 2
+
+This is the content of section 2.
+/```
+
+## Developing Interactive Applications with Shiny
+
+Shiny is a web application framework for R that allows you to create interactive web applications. 
+
+```{r}
+# A simple Shiny application in R
+library(shiny)
+
+ui <- fluidPage(
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("num", "Number:", min = 1, max = 100, value = 50)
+    ),
+    mainPanel(
+      plotOutput("plot")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$plot <- renderPlot({
+    x <- seq(1, input$num)
+    y <- rnorm(input$num)
+    plot(x, y)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+In the example above, a Shiny application is created with a sidebar panel containing a slider input, and a main panel displaying a plot. The plot updates based on the input value.
+
