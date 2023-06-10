@@ -17,7 +17,9 @@ output:
 # dplyrパッケージとggplot2パッケージをインストール
 install.packages("dplyr")
 install.packages("ggplot2")
+```
 
+```{r, error=TRUE, include=TRUE}
 # インストールしたパッケージを読み込む
 library("dplyr")
 library("ggplot2")
@@ -51,30 +53,31 @@ mpg データは、自動車の燃費に関する情報を持つデータセッ�
 
 ## データの加工
 
-次に、データを分析に適した形に加工します。ここでは、dplyrパッケージの関数を使ってデータを絞り込み、新しい列を作成します。
+以下のRコードは、自動車の燃費データを加工するものです。ここで使っているdplyrというパッケージは、データフレームの中身を見たり、選んだり、絞り込んだり、新しく加えたりと、データを効率的に扱うための道具がたくさん詰まっています。
+
+このコードでは、dplyrと一緒に使われる「%>%」という特殊な記号が出てきます。これを「パイプ」と呼び、複数の作業をつなげて一つの流れで行うことができます。
 
 ```{r, error=TRUE, include=TRUE}
-# mpgデータを絞り込み、新しい列を作成
-mpg_filtered <- mpg %>%
-  select(manufacturer, model, displ, year, cyl) %>%  # 列の絞り込み
-  filter(manufacturer == "audi") %>%  # 行の絞り込み
-  mutate(century = ceiling(year / 100)) # 新しい列を作成
+# mpgという燃費データを取り出して、それに一連の作業を施します。
+# 作業の結果はmpg_filteredという名前で保存します。
+mpg_filtered <- mpg %>%  
+
+  # まず、必要な列だけをピックアップします。メーカー、モデル、排気量、年式、シリンダー数の情報だけを取り出します。
+  select(manufacturer, model, displ, year, cyl) %>%  
+
+  # 次に、メーカーがアウディのものだけを選びます。
+  filter(manufacturer == "audi") %>%  
+
+  # 最後に、新しい列を追加します。新しい列の名前はcenturyで、年式を100で割った数を切り上げたものを格納します。
+  # これで2000年式の車ならcenturyは20になります。
+  mutate(century = ceiling(year / 100)) 
 ```
 
 ```{r, error=TRUE, include=TRUE}
 head(mpg_filtered)  # 加工後のデータを表示
 ```
 
-```{r, error=TRUE, include=TRUE}
-# 加工後のデータセットmpg_filteredの最初の6行を表示します。
-head(mpg_filtered)
-```
-
-上記のコードでは、mpg データから特定の列（manufacturer、model、displ、year、cyl）を選択し、manufacturer 列が "audi" のデータを抽出しています。さらに、year 列を使って新しい列 century を作成しています。加工後のデータを mpg_filtered という新しいオブジェクトに格納し、表示しています。
-
-- select(): 条件に合わせて特定の列を抽出する関数です。ここでは、mpg データから manufacturer、model、displ、year、cyl 列を選択しています。
-- filter(): 条件に合わせて特定の行を抽出する関数です。ここでは、manufacturer 列が "audi" のデータを抽出しています。
-- mutate(): 既存のデータに新しい列を追加する関数です。ここでは、year 列を使って新しい列 century を作成しています。
+最終的に、アウディの車について、選んだ5つの情報と新しく作った「century」列が含まれたデータフレームが得られます。このように、「%>%」を使うことで一つ一つの作業を明確にし、繋げて一つの流れとすることができます。
 
 ## エラーの確認
 
@@ -89,53 +92,65 @@ unknown_function()
 
 ## 応用問題
 
-以下のコードで応用問題の解答を表示します。
+このRのコードは、自動車の燃費データ(mpg)を加工して、一部の情報だけを選び、整理するものです。この作業をするのに、「dplyr」という便利なパッケージを使っています。
 
 ```{r, error=TRUE, include=TRUE}
-# 応用問題の解答
-mpg_solution <- mpg %>%
-  select(manufacturer, model, year, class) %>%  # 列の絞り込み
-  arrange(desc(year)) %>%  # year列を降順に並び替え
-  select(class, manufacturer, year, model)  # 列の並び替え
+# mpgという自動車の燃費データから、作業の結果をmpg_solutionという名前で保存します。
+mpg_solution <- mpg %>%  
+
+  # まずは、必要な情報だけを選び出します。ここでは、メーカー、モデル、製造年、車の種類だけを取り出します。
+  select(manufacturer, model, year, class) %>%  
+
+  # 次に、製造年が新しいものから順にデータを並び替えます。
+  arrange(desc(year)) %>%  
+
+  # 最後に、取り出した情報の順番を、車の種類、メーカー、製造年、モデルの順に並べ替えます。
+  select(class, manufacturer, year, model)  
 ```
 
 ```{r, error=TRUE, include=TRUE}
 head(mpg_solution)  # 解答を表示
 ```
 
-このコードでは、まずmpgデータセットからmanufacturer、model、year、classの列を選択しています。その後、year列を降順に並び替え（最新の年から始まるように）し、最終的に各列を指定した順序に再配置しています。
-
-- arrange(): 列の値を昇順または降順に並び替える関数です。ここでは、desc() 関数を使って year 列を降順に並び替えています。
+このコードを使うと、データの中から自分が必要とする情報だけを選び出し、その情報を整理して新しいデータを作ることができます。そして、その作業を一つずつ明確に行うことで、何をしているのかがわかりやすくなります。
 
 ## dplyrの便利な関数：group_by()とfull_join()
 
 ### group_by()
 
-`group_by()`は、データを特定の条件に基づいてグループ化する関数です。具体的な使用例として、都市ごとの人口の平均を求めるケースを考えてみます。
+ここではgroup_by()という関数を使ったデータのグループ化方法とその結果を計算する方法を説明します。
 
-まずは、都市と人口を含むサンプルデータフレームを作成します。
+まず、例として都市名とその人口を含む簡単なデータを考えます。
 
 ```{r, error=TRUE, include=TRUE}
-# サンプルデータフレームの作成
+# "東京"と"大阪"という二つの都市の人口データを作成します。
+# "東京"の人口は1000人、1500人、1300人、"大阪"の人口は2000人、2500人とします。
 df <- data.frame(
   city = c("東京", "大阪", "東京", "大阪", "東京"),
   population = c(1000, 2000, 1500, 2500, 1300)
 )
+```
 
+```{r, error=TRUE, include=TRUE}
+# 作ったデータを表示してみましょう。
 print(df)
 ```
 
-次にgroup_by(city)を用いて都市ごとにデータをグループ化し、その後summarise()を使って平均値を求めます。
+次に、都市ごとに人口の平均を求めるため、group_by(city)で都市ごとにデータをまとめ、その後summarise()を使って平均値を計算します。
 
 ```{r, error=TRUE, include=TRUE}
+# データを都市ごとにまとめてから、その人口の平均を求めて新しいデータフレーム'df_grouped'に保存します。
 df_grouped <- df %>%
   group_by(city) %>%
   summarise(avg_population = mean(population))
+```
 
+```{r, error=TRUE, include=TRUE}
+# 平均人口を計算した結果を表示します。
 print(df_grouped)
 ```
 
-この結果、都市ごとの人口の平均値を簡単に算出することができました。
+以上の操作により、"東京"と"大阪"それぞれの平均人口を簡単に求めることができました。このようにgroup_by()を使うと、同じカテゴリーに属するデータを一つにまとめて、そのカテゴリーごとの統計値を容易に計算することができます。
 
 - full_join()は、2つのデータフレームを一つに結合する関数です。この結合方法は全結合（full join）と呼ばれ、2つのデータフレームの全ての行を結合します。この時、どちらか一方のデータフレームにしか存在しない行もNAとして保持されます。
 
