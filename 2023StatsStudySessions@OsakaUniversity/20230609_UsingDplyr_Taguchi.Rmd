@@ -1,45 +1,43 @@
-次のマークダウンファイルはdplyr を使った分析前の準備を解説したものです。初心者向けに内容を改善して下さい。Rコードに#をつけて解説して下さい。
-
 ---
-title: "dplyr を使った分析前の準備"
-author: "田口恵也"
+title: "dplyr を使った分析前の準備 by 田口恵也"
+author: "金山篤志"
 date: "2023-06-09"
 output: 
   html_document:
     toc: true
     toc_float: true
+    theme: cosmo
 ---
 
 # パッケージのインストールと読み込み
 
-初めに、分析に必要なパッケージをインストールし、読み込みます。dplyrパッケージとggplot2パッケージを使用するため、以下のコードを実行します。
+最初に、分析に必要なパッケージをインストールし、読み込みます。dplyrパッケージとggplot2パッケージを使用するため、以下のコードを実行します。
 
 ```{r, error=TRUE, include=TRUE}
+# dplyrパッケージとggplot2パッケージをインストール
 install.packages("dplyr")
 install.packages("ggplot2")
 
+# インストールしたパッケージを読み込む
 library("dplyr")
 library("ggplot2")
 ```
 
 ## データの準備
 
-分析のためのデータを準備します。今回は mpg データセットを使用します。以下のコードでデータを読み込みます。
+次に、分析のためのデータを準備します。今回は mpg データセットを使用します。mpgはRに組み込まれているデータセットで、自動車の燃費に関する情報が入っています。
 
 ```{r, error=TRUE, include=TRUE}
-data(mpg)
-```
-
-
-```{r, error=TRUE, include=TRUE}
+# mpgデータセットを読み込みます
 data(mpg)
 ```
 
 ## データの確認
 
-データを読み込んだ後、まずはデータの概要を確認しましょう。
+データを読み込んだ後、まずはデータの概要を確認しましょう。head関数を使うと、データの最初の6行を表示することができます。
 
 ```{r, error=TRUE, include=TRUE}
+# mpgデータセットの最初の6行を表示します
 head(mpg)
 ```
 
@@ -56,14 +54,19 @@ mpg データは、自動車の燃費に関する情報を持つデータセッ�
 次に、データを分析に適した形に加工します。ここでは、dplyrパッケージの関数を使ってデータを絞り込み、新しい列を作成します。
 
 ```{r, error=TRUE, include=TRUE}
+# mpgデータを絞り込み、新しい列を作成
 mpg_filtered <- mpg %>%
-  # 列の絞り込み
-  select(manufacturer, model, displ, year, cyl) %>%
-  # 行の絞り込み
-  filter(manufacturer == "audi") %>%
-  # 新しい列を作成
-  mutate(century = ceiling(year / 100))
+  select(manufacturer, model, displ, year, cyl) %>%  # 列の絞り込み
+  filter(manufacturer == "audi") %>%  # 行の絞り込み
+  mutate(century = ceiling(year / 100)) # 新しい列を作成
+```
 
+```{r, error=TRUE, include=TRUE}
+head(mpg_filtered)  # 加工後のデータを表示
+```
+
+```{r, error=TRUE, include=TRUE}
+# 加工後のデータセットmpg_filteredの最初の6行を表示します。
 head(mpg_filtered)
 ```
 
@@ -89,50 +92,159 @@ unknown_function()
 以下のコードで応用問題の解答を表示します。
 
 ```{r, error=TRUE, include=TRUE}
+# 応用問題の解答
 mpg_solution <- mpg %>%
   select(manufacturer, model, year, class) %>%  # 列の絞り込み
   arrange(desc(year)) %>%  # year列を降順に並び替え
   select(class, manufacturer, year, model)  # 列の並び替え
-
-head(mpg_solution)
 ```
 
-上記のコードでは、mpg データから特定の列（manufacturer、model、year、class）を選択し、year 列を降順に並び替えた後、指定した列の順序に並び替えています。
+```{r, error=TRUE, include=TRUE}
+head(mpg_solution)  # 解答を表示
+```
+
+このコードでは、まずmpgデータセットからmanufacturer、model、year、classの列を選択しています。その後、year列を降順に並び替え（最新の年から始まるように）し、最終的に各列を指定した順序に再配置しています。
 
 - arrange(): 列の値を昇順または降順に並び替える関数です。ここでは、desc() 関数を使って year 列を降順に並び替えています。
 
-## その他の関数
+## dplyrの便利な関数：group_by()とfull_join()
 
-dplyrパッケージには他にも便利な関数があります。以下はその一部です。
+### group_by()
 
-- group_by(): 条件に基づいてデータをグループ分けする関数です。
-- full_join(): 二つのデータフレームを一つに統合する関数です。
+`group_by()`は、データを特定の条件に基づいてグループ化する関数です。具体的な使用例として、都市ごとの人口の平均を求めるケースを考えてみましょう。
 
-詳細な使い方や他の関数については、
+まずは、都市と人口を含むサンプルデータフレームを作成します。
 
-参考ページ
+```{r, error=TRUE, include=TRUE}
+# サンプルデータフレームの作成
+df <- data.frame(
+  city = c("東京", "大阪", "東京", "大阪", "東京"),
+  population = c(1000, 2000, 1500, 2500, 1300)
+)
 
-http://sugiura-ken.org/wiki/wiki.cgi/exp?page=dplyr
-　　
-https://stats.biopapyrus.jp/r/tidyverse/dplyr.html
+print(df)
+```
 
-https://kazutan.github.io/JSSP2018_spring/data_handling.html#%E5%88%97%E9%81%B8%E6%8A%9E
+次にgroup_by(city)を用いて都市ごとにデータをグループ化し、その後summarise()を使って平均値を求めます。
 
-や
+```{r, error=TRUE, include=TRUE}
+df_grouped <- df %>%
+  group_by(city) %>%
+  summarise(avg_population = mean(population))
 
-日本語チートシート
+print(df_grouped)
+```
 
-https://raw.githubusercontent.com/rstudio/cheatsheets/main/translations/japanese/data-wrangling_ja.pdf
+この結果、都市ごとの人口の平均値を簡単に算出することができました。
 
-をご参照ください。
+- full_join()は、2つのデータフレームを一つに結合する関数です。この結合方法は全結合（full join）と呼ばれ、2つのデータフレームの全ての行を結合します。この時、どちらか一方のデータフレームにしか存在しない行もNAとして保持されます。
+
+まずは、2つのサンプルデータフレームを作成します。
+
+```{r, error=TRUE, include=TRUE}
+# サンプルデータフレームの作成
+df1 <- data.frame(
+  city = c("東京", "大阪", "福岡"),
+  population = c(1000, 2000, 1500)
+)
+
+df2 <- data.frame(
+  city = c("大阪", "福岡", "札幌"),
+  area = c(223.00, 340.60, 1121.12)
+)
+
+print(df1)
+print(df2)
+```
+
+次にfull_join()を使って、これらのデータフレームを結合します。
+
+```{r, error=TRUE, include=TRUE}
+df_joined <- df1 %>%
+  full_join(df2, by = "city")
+
+print(df_joined)
+```
+
+この結果、両方のデータフレームの情報を統合することができました。なお、"東京"と"札幌"については片方のデータフレームにしか存在しないため、対応する値がNAとなっています。
 
 ## データセットの形
 
-データにはワイド型とロング型の2つの形式があります。
+データは主にワイド形式とロング形式の2つの形式で表されます：
 
-- ワイド型: 列方向に変数が並んでいる形式です。
-- ロング型: データの観測値ごとに行が並んでいる形式です。
+- ワイド形式：各観測値が行、各変数が列として配置される形式。時間経過に伴う複数の測定値などはこの形式で表されます。
+- ロング形式：各観測値が行として配置され、変数が列として配置される形式。一つの列には同じ種類の値（例えば全てが体重）が入ります。
 
-ワイド型からロング型への変換には、tidyrパッケージのpivot_longer()関数を使用します。逆に、ロング型からワイド型への変換には、pivot_wider()関数を使用します。
+ワイド形式のデータをロング形式に、またその逆に変換するためには、tidyrパッケージのpivot_longer()とpivot_wider()を使用します。
 
-以上が、dplyrを使った分析前の準備についての解説です。
+まず、ワイド形式のデータを作成します。
+
+```{r, error=TRUE, include=TRUE}
+# ワイド形式のデータフレーム
+df_wide <- data.frame(
+  id = c(1, 2),
+  weight_2001 = c(60, 55),
+  weight_2002 = c(62, 58),
+  weight_2003 = c(63, 59)
+)
+
+print(df_wide)
+```
+
+このデータフレームをロング形式に変換するためには、tidyverseのpivot_longer()を用います。
+
+```{r, error=TRUE, include=TRUE}
+# tidyverseの読み込み
+library(tidyverse)
+
+# ワイド形式のデータフレーム
+df_wide <- data.frame(
+  id = c(1, 2),
+  weight_2001 = c(60, 55),
+  weight_2002 = c(62, 58),
+  weight_2003 = c(63, 59)
+)
+
+# pivot_longerを利用してロング形式に変換
+df_long <- df_wide %>%
+  pivot_longer(
+    cols = starts_with("weight"),
+    names_to = "year",
+    values_to = "weight"
+  )
+
+# 結果の確認
+print(df_long)
+```
+
+この結果、ワイド形式のデータがロング形式に変換されました。全ての体重の観測値がweight列に、それぞれの観測値がどの年に対応するのかを示す情報がyear列に保存されています。
+
+逆に、ロング形式のデータをワイド形式に変換するには、pivot_wider()を用います。
+
+```{r, error=TRUE, include=TRUE}
+# ロング形式のデータフレームdf_longを、pivot_wider()関数を使ってワイド形式に変換します。
+# names_from = yearは、新たに列名として使うデータが格納されている列を指定しています。
+# values_from = weightは、新たに値として使うデータが格納されている列を指定しています。
+df_wide_again <- df_long %>%
+  pivot_wider(
+    names_from = year,
+    values_from = weight
+  )
+
+# 変換後のワイド形式のデータフレームを確認します。
+print(df_wide_again)
+```
+
+この結果、ロング形式のデータが元のワイド形式に戻されました。
+
+このように、pivot_longer()とpivot_wider()は、データ形状の変換に非常に便利なツールです。これらを使えば、データの視覚化やモデリングのために最適な形状にデータを変換することができます。
+
+以上で、dplyrとtidyrの主な関数の紹介と使用例を終わります。更に詳細な使用方法や他の関数については、以下の参考ページやチートシートをご覧ください：
+
+参考ページ：
+1. [dplyr wiki](http://sugiura-ken.org/wiki/wiki.cgi/exp?page=dplyr)
+2. [dplyr パッケージによるデータ操作と集計](https://stats.biopapyrus.jp/r/tidyverse/dplyr.html)
+3. [R/RStudio入門 列選択](https://kazutan.github.io/JSSP2018_spring/data_handling.html#列選択)
+4. [データ操作の日本語チートシート](https://raw.githubusercontent.com/rstudio/cheatsheets/main/translations/japanese/data-wrangling_ja.pdf)
+
+をご参照ください。
