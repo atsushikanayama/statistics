@@ -6,8 +6,10 @@ output:
     theme: cosmo
 ---
 
-[2023/05/12 文献管理の仕方とツールの紹介 by 田口恵也](20230512_IntroductionToLiteratureManagementTechniquesAndTools_Taguchi.pptx)
+[2023/05/12 Slides for 文献管理の仕方とツールの紹介 by 田口恵也](https://www.dropbox.com/s/pm2rsg1kxyrso7e/20230512_IntroductionToLiteratureManagementTechniquesAndTools_Taguchi.pptx?dl=0)
 
-[2023/06/02 RStudioの基礎 by 田辺和奏](20230602_RStudioBasics.html)
+[2023/06/02 R code for RStudioの基礎 by 田辺和奏](https://www.dropbox.com/s/eizocsuggecu1ji/20230602_RStudioBasics_Tanabe.html?dl=0)
 
-[2023/06/09 dplyrを使った分析前の準備 by 田口恵也](20230609_UsingDplyr.html)
+[2023/06/09 R code for dplyrを使った分析前の準備 by 田口恵也](https://www.dropbox.com/s/fd4kjhm1mgqhsbf/20230609_UsingDplyr_Taguchi.html?dl=0)
+
+[2023/06/09 Slides for dplyrを使った分析前の準備 by 田口恵也](https://www.dropbox.com/s/ule3t2x34ftmhz7/20230609_UsingDplyr_Taguchi.pptx?dl=0)
