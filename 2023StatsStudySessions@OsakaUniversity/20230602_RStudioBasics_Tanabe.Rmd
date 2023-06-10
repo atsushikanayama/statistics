@@ -23,10 +23,10 @@ str関数はR言語の非常に便利な関数で、指定したオブジェク�
 
 具体的には、以下のような情報が表示されます：
 
-*データフレーム（data.frame）であること。
-*全部で150の観測値（行）があり、5つの変数（列）があること。
-*各列の名前（Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Species）とそれぞれのデータ型（数値、因子）。
-*各列の最初の数行のデータ値。
+- データフレーム（data.frame）
+- 全部で150の観測値（行）、5つの変数（列）
+- 各列の名前（Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Species）とそれぞれのデータ型（数値、因子）
+- 各列の最初の数行のデータ値
 
 ```{r}
 # str関数でirisデータセットの構造を確認
