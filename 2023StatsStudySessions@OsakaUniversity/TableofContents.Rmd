@@ -1,0 +1,13 @@
+---
+title: "統計勉強会 @ 大阪大学"
+output:
+  html_document:
+    toc: true
+    theme: cosmo
+---
+
+[2023/05/12 文献管理の仕方とツールの紹介 by 田口恵也](20230512_IntroductionToLiteratureManagementTechniquesAndTools_Taguchi.pptx)
+
+[2023/06/02 RStudioの基礎 by 田辺和奏](20230602_RStudioBasics.html)
+
+[2023/06/09 dplyrを使った分析前の準備 by 田口恵也](20230609_UsingDplyr.html)

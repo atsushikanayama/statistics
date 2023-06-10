@@ -1,0 +1,138 @@
+次のマークダウンファイルはdplyr を使った分析前の準備を解説したものです。初心者向けに内容を改善して下さい。Rコードに#をつけて解説して下さい。
+
+---
+title: "dplyr を使った分析前の準備"
+author: "田口恵也"
+date: "2023-06-09"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# パッケージのインストールと読み込み
+
+初めに、分析に必要なパッケージをインストールし、読み込みます。dplyrパッケージとggplot2パッケージを使用するため、以下のコードを実行します。
+
+```{r, error=TRUE, include=TRUE}
+install.packages("dplyr")
+install.packages("ggplot2")
+
+library("dplyr")
+library("ggplot2")
+```
+
+## データの準備
+
+分析のためのデータを準備します。今回は mpg データセットを使用します。以下のコードでデータを読み込みます。
+
+```{r, error=TRUE, include=TRUE}
+data(mpg)
+```
+
+
+```{r, error=TRUE, include=TRUE}
+data(mpg)
+```
+
+## データの確認
+
+データを読み込んだ後、まずはデータの概要を確認しましょう。
+
+```{r, error=TRUE, include=TRUE}
+head(mpg)
+```
+
+mpg データは、自動車の燃費に関する情報を持つデータセットです。データセットの各列には以下のような情報が含まれています。
+
+- manufacturer: 製造メーカーの名前
+- model: モデル名
+- displ: 排気量（単位: L）
+- year: 製造年
+- cyl: シリンダー数
+
+## データの加工
+
+次に、データを分析に適した形に加工します。ここでは、dplyrパッケージの関数を使ってデータを絞り込み、新しい列を作成します。
+
+```{r, error=TRUE, include=TRUE}
+mpg_filtered <- mpg %>%
+  # 列の絞り込み
+  select(manufacturer, model, displ, year, cyl) %>%
+  # 行の絞り込み
+  filter(manufacturer == "audi") %>%
+  # 新しい列を作成
+  mutate(century = ceiling(year / 100))
+
+head(mpg_filtered)
+```
+
+上記のコードでは、mpg データから特定の列（manufacturer、model、displ、year、cyl）を選択し、manufacturer 列が "audi" のデータを抽出しています。さらに、year 列を使って新しい列 century を作成しています。加工後のデータを mpg_filtered という新しいオブジェクトに格納し、表示しています。
+
+- select(): 条件に合わせて特定の列を抽出する関数です。ここでは、mpg データから manufacturer、model、displ、year、cyl 列を選択しています。
+- filter(): 条件に合わせて特定の行を抽出する関数です。ここでは、manufacturer 列が "audi" のデータを抽出しています。
+- mutate(): 既存のデータに新しい列を追加する関数です。ここでは、year 列を使って新しい列 century を作成しています。
+
+## エラーの確認
+
+R Markdownでは、エラーが出ても読み込むことができ、再生マークをクリックしてRコードの出力結果を表示することができます。以下のコードでエラーのテストを行います。
+
+```{r, error=TRUE, include=TRUE}
+# エラーを発生させるコード例
+unknown_function()
+```
+
+上記のコードでは、unknown_function() という存在しない関数を呼び出してエラーを発生させています。
+
+## 応用問題
+
+以下のコードで応用問題の解答を表示します。
+
+```{r, error=TRUE, include=TRUE}
+mpg_solution <- mpg %>%
+  select(manufacturer, model, year, class) %>%  # 列の絞り込み
+  arrange(desc(year)) %>%  # year列を降順に並び替え
+  select(class, manufacturer, year, model)  # 列の並び替え
+
+head(mpg_solution)
+```
+
+上記のコードでは、mpg データから特定の列（manufacturer、model、year、class）を選択し、year 列を降順に並び替えた後、指定した列の順序に並び替えています。
+
+- arrange(): 列の値を昇順または降順に並び替える関数です。ここでは、desc() 関数を使って year 列を降順に並び替えています。
+
+## その他の関数
+
+dplyrパッケージには他にも便利な関数があります。以下はその一部です。
+
+- group_by(): 条件に基づいてデータをグループ分けする関数です。
+- full_join(): 二つのデータフレームを一つに統合する関数です。
+
+詳細な使い方や他の関数については、
+
+参考ページ
+
+http://sugiura-ken.org/wiki/wiki.cgi/exp?page=dplyr
+　　
+https://stats.biopapyrus.jp/r/tidyverse/dplyr.html
+
+https://kazutan.github.io/JSSP2018_spring/data_handling.html#%E5%88%97%E9%81%B8%E6%8A%9E
+
+や
+
+日本語チートシート
+
+https://raw.githubusercontent.com/rstudio/cheatsheets/main/translations/japanese/data-wrangling_ja.pdf
+
+をご参照ください。
+
+## データセットの形
+
+データにはワイド型とロング型の2つの形式があります。
+
+- ワイド型: 列方向に変数が並んでいる形式です。
+- ロング型: データの観測値ごとに行が並んでいる形式です。
+
+ワイド型からロング型への変換には、tidyrパッケージのpivot_longer()関数を使用します。逆に、ロング型からワイド型への変換には、pivot_wider()関数を使用します。
+
+以上が、dplyrを使った分析前の準備についての解説です。
