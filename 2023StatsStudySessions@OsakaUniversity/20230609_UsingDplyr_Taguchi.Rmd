@@ -1,6 +1,6 @@
 ---
 title: "dplyr を使った分析前の準備 by 田口恵也"
-author: "金山篤志"
+author: "まとめ by 金山篤志"
 date: "2023-06-09"
 output: 
   html_document:

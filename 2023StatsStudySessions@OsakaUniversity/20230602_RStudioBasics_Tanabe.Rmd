@@ -1,6 +1,6 @@
 ---
 title: "Rの基礎 by 田辺和奏"
-author: "金山篤志"
+author: "まとめ by 金山篤志"
 date: "2023-06-09"
 output: 
   html_document:
