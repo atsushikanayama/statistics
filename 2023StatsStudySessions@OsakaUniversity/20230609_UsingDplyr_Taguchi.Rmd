@@ -92,7 +92,7 @@ unknown_function()
 
 ## 応用問題
 
-このRのコードは、自動車の燃費データ(mpg)を加工して、一部の情報だけを選び、整理するものです。この作業をするのに、「dplyr」という便利なパッケージを使っています。
+次のRのコードは、自動車の燃費データ(mpg)を加工して、一部の情報だけを選び、整理するものです。
 
 ```{r, error=TRUE, include=TRUE}
 # mpgという自動車の燃費データから、作業の結果をmpg_solutionという名前で保存します。
@@ -167,7 +167,9 @@ df2 <- data.frame(
   city = c("大阪", "福岡", "札幌"),
   area = c(223.00, 340.60, 1121.12)
 )
+```
 
+```{r, error=TRUE, include=TRUE}
 print(df1)
 print(df2)
 ```
@@ -219,7 +221,9 @@ df_wide <- data.frame(
   weight_2002 = c(62, 58),
   weight_2003 = c(63, 59)
 )
+```
 
+```{r, error=TRUE, include=TRUE}
 # pivot_longerを利用してロング形式に変換
 df_long <- df_wide %>%
   pivot_longer(
@@ -227,7 +231,9 @@ df_long <- df_wide %>%
     names_to = "year",
     values_to = "weight"
   )
+```
 
+```{r, error=TRUE, include=TRUE}
 # 結果の確認
 print(df_long)
 ```
@@ -245,7 +251,9 @@ df_wide_again <- df_long %>%
     names_from = year,
     values_from = weight
   )
+```
 
+```{r, error=TRUE, include=TRUE}
 # 変換後のワイド形式のデータフレームを確認します。
 print(df_wide_again)
 ```

@@ -1595,7 +1595,7 @@ unknown_function()</code></pre>
 </div>
 <div id="応用問題" class="section level2">
 <h2>応用問題</h2>
-<p>このRのコードは、自動車の燃費データ(mpg)を加工して、一部の情報だけを選び、整理するものです。この作業をするのに、「dplyr」という便利なパッケージを使っています。</p>
+<p>次のRのコードは、自動車の燃費データ(mpg)を加工して、一部の情報だけを選び、整理するものです。</p>
 <pre class="r"><code># mpgという自動車の燃費データから、作業の結果をmpg_solutionという名前で保存します。
 mpg_solution &lt;- mpg %&gt;%  
 
@@ -1666,9 +1666,8 @@ df1 &lt;- data.frame(
 df2 &lt;- data.frame(
   city = c(&quot;大阪&quot;, &quot;福岡&quot;, &quot;札幌&quot;),
   area = c(223.00, 340.60, 1121.12)
-)
-
-print(df1)</code></pre>
+)</code></pre>
+<pre class="r"><code>print(df1)</code></pre>
 <pre><code>##   city population
 ## 1 東京       1000
 ## 2 大阪       2000
@@ -1730,17 +1729,15 @@ df_wide &lt;- data.frame(
   weight_2001 = c(60, 55),
   weight_2002 = c(62, 58),
   weight_2003 = c(63, 59)
-)
-
-# pivot_longerを利用してロング形式に変換
+)</code></pre>
+<pre class="r"><code># pivot_longerを利用してロング形式に変換
 df_long &lt;- df_wide %&gt;%
   pivot_longer(
     cols = starts_with(&quot;weight&quot;),
     names_to = &quot;year&quot;,
     values_to = &quot;weight&quot;
-  )
-
-# 結果の確認
+  )</code></pre>
+<pre class="r"><code># 結果の確認
 print(df_long)</code></pre>
 <pre><code>## # A tibble: 6 × 3
 ##      id year        weight
@@ -1760,9 +1757,8 @@ df_wide_again &lt;- df_long %&gt;%
   pivot_wider(
     names_from = year,
     values_from = weight
-  )
-
-# 変換後のワイド形式のデータフレームを確認します。
+  )</code></pre>
+<pre class="r"><code># 変換後のワイド形式のデータフレームを確認します。
 print(df_wide_again)</code></pre>
 <pre><code>## # A tibble: 2 × 4
 ##      id weight_2001 weight_2002 weight_2003
