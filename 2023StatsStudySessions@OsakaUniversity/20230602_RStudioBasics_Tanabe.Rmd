@@ -67,6 +67,13 @@ for (i in 1:10) {
 # これで、「for」ループを使って1から10までの各数字に1を足して表示する作業は終了です。
 ```
 
+```{r, error=TRUE, include=TRUE}
+# 解説なしバージョン
+for (i in 1:10) {
+  print(i + 1)
+}
+```
+
 ## オブジェクトの作成と確認
 
 Rを使用してオブジェクトを作成し、その内容を確認することができます。以下にいくつかの例を示します。
@@ -102,6 +109,16 @@ tashizan <- function(a, b) {
   }
 
   # 'a'も'b'も数値である場合は、'a'と'b'を足し合わせた結果を出力します。
+  a + b
+}
+```
+
+```{r, error=TRUE, include=TRUE}
+# 解説なしバージョン
+tashizan <- function(a, b) {
+  if (!is.numeric(a) || !is.numeric(b)) {
+    stop("数値を入力してください")
+  }
   a + b
 }
 ```

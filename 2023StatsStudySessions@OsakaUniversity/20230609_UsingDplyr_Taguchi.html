@@ -1571,6 +1571,11 @@ mpg_filtered &lt;- mpg %&gt;%
   # 最後に、新しい列を追加します。新しい列の名前はcenturyで、年式を100で割った数を切り上げたものを格納します。
   # これで2000年式の車ならcenturyは20になります。
   mutate(century = ceiling(year / 100)) </code></pre>
+<pre class="r"><code># 解説なし
+mpg_filtered &lt;- mpg %&gt;%  
+  select(manufacturer, model, displ, year, cyl) %&gt;%  
+  filter(manufacturer == &quot;audi&quot;) %&gt;%  
+  mutate(century = ceiling(year / 100)) </code></pre>
 <pre class="r"><code>head(mpg_filtered)  # 加工後のデータを表示</code></pre>
 <pre><code>## # A tibble: 6 × 6
 ##   manufacturer model displ  year   cyl century
@@ -1606,6 +1611,11 @@ mpg_solution &lt;- mpg %&gt;%
   arrange(desc(year)) %&gt;%  
 
   # 最後に、取り出した情報の順番を、車の種類、メーカー、製造年、モデルの順に並べ替えます。
+  select(class, manufacturer, year, model)  </code></pre>
+<pre class="r"><code># 解説なし
+mpg_solution &lt;- mpg %&gt;%  
+  select(manufacturer, model, year, class) %&gt;%  
+  arrange(desc(year)) %&gt;% 
   select(class, manufacturer, year, model)  </code></pre>
 <pre class="r"><code>head(mpg_solution)  # 解答を表示</code></pre>
 <pre><code>## # A tibble: 6 × 4
