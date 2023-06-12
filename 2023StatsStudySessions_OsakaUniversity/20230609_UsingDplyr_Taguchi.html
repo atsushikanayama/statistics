@@ -1571,7 +1571,7 @@ mpg_filtered &lt;- mpg %&gt;%
   # 最後に、新しい列を追加します。新しい列の名前はcenturyで、年式を100で割った数を切り上げたものを格納します。
   # これで2000年式の車ならcenturyは20になります。
   mutate(century = ceiling(year / 100)) </code></pre>
-<pre class="r"><code># 解説なし
+<pre class="r"><code># 解説なしバージョン
 mpg_filtered &lt;- mpg %&gt;%  
   select(manufacturer, model, displ, year, cyl) %&gt;%  
   filter(manufacturer == &quot;audi&quot;) %&gt;%  
@@ -1612,7 +1612,7 @@ mpg_solution &lt;- mpg %&gt;%
 
   # 最後に、取り出した情報の順番を、車の種類、メーカー、製造年、モデルの順に並べ替えます。
   select(class, manufacturer, year, model)  </code></pre>
-<pre class="r"><code># 解説なし
+<pre class="r"><code># 解説なしバージョン
 mpg_solution &lt;- mpg %&gt;%  
   select(manufacturer, model, year, class) %&gt;%  
   arrange(desc(year)) %&gt;% 
@@ -1778,10 +1778,16 @@ print(df_wide_again)</code></pre>
 <p>この結果、ロング形式のデータが元のワイド形式に戻されました。</p>
 <p>このように、pivot_longer()とpivot_wider()は、データ形状の変換に非常に便利なツールです。これらを使えば、データの視覚化やモデリングのために最適な形状にデータを変換することができます。</p>
 <p>以上で、dplyrとtidyrの主な関数の紹介と使用例を終わります。更に詳細な使用方法や他の関数については、以下の参考ページやチートシートをご覧ください：</p>
-<p>参考ページ： 1. <a href="http://sugiura-ken.org/wiki/wiki.cgi/exp?page=dplyr">dplyr
-wiki</a> 2. <a href="https://stats.biopapyrus.jp/r/tidyverse/dplyr.html">dplyr
-パッケージによるデータ操作と集計</a> 3. <a href="https://kazutan.github.io/JSSP2018_spring/data_handling.html#列選択">R/RStudio入門
-列選択</a> 4. <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/translations/japanese/data-wrangling_ja.pdf">チートシート</a></p>
+<p>参考ページ：</p>
+<ol style="list-style-type: decimal">
+<li><a href="http://sugiura-ken.org/wiki/wiki.cgi/exp?page=dplyr">dplyr
+wiki</a></li>
+<li><a href="https://stats.biopapyrus.jp/r/tidyverse/dplyr.html">dplyr
+パッケージによるデータ操作と集計</a></li>
+<li><a href="https://kazutan.github.io/JSSP2018_spring/data_handling.html#列選択">R/RStudio入門
+列選択</a></li>
+<li><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/translations/japanese/data-wrangling_ja.pdf">チートシート</a></li>
+</ol>
 <p>をご参照ください。</p>
 </div>
 </div>

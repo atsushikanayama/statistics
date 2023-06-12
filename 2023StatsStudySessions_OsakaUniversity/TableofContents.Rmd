@@ -25,6 +25,11 @@ output:
 - [スライド](https://www.dropbox.com/s/aulg3ts5a8132ps/20230609_UsingDplyr_Taguchi.pptx?dl=0)
 - [Rコード](http://htmlpreview.github.io/?https://github.com/atsushikanayama/statistics/blob/main/2023StatsStudySessions%40OsakaUniversity/20230609_UsingDplyr_Taguchi.html)
 
+#### 2023/06/16 χ2検定 by 戸田梨鈴
+
+- [スライド](https://www.dropbox.com/s/hagtd94paot9nil/20230616_ChiSquareTest_Toda.pptx?dl=0)
+- [Rコード to be uploaded]()
+
 ### 後期
 
 

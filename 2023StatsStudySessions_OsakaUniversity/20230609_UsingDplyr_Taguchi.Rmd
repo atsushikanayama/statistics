@@ -283,6 +283,7 @@ print(df_wide_again)
 以上で、dplyrとtidyrの主な関数の紹介と使用例を終わります。更に詳細な使用方法や他の関数については、以下の参考ページやチートシートをご覧ください：
 
 参考ページ：
+
 1. [dplyr wiki](http://sugiura-ken.org/wiki/wiki.cgi/exp?page=dplyr)
 2. [dplyr パッケージによるデータ操作と集計](https://stats.biopapyrus.jp/r/tidyverse/dplyr.html)
 3. [R/RStudio入門 列選択](https://kazutan.github.io/JSSP2018_spring/data_handling.html#列選択)
