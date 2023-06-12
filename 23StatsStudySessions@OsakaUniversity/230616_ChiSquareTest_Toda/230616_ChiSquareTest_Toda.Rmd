@@ -156,6 +156,55 @@ barplot(x1table, main="Number of 'No' and 'Yes'", xlab="Answer", ylab="Count", c
 
 ```
 
+
+```{r, error=TRUE, include=TRUE}
+x <- table(dat)
+x
+n = sum(x)
+chisq.test(x)
+```
+
+```{r, error=TRUE, include=TRUE}
+x <- c(18, 24, 48)
+table(x)  #頻度表
+names(x) <- c("日本語","タイ語","中国語")
+x
+chisq.test(x)
+```
+
+```{r, error=TRUE, include=TRUE}
+library(pwr)            # pwrパッケージ使用
+P0 <- c(1/3, 1/3, 1/3)  # 期待比率（3つのカテゴリーなので1/3）
+P1 <- x/n               # 標本比率
+w <- ES.w1(P0, P1)      # 効果量ｗを求める関数
+w                       # 効果量ｗの評価：大=0.5, 中=0.3, 小=0.1
+```
+
+多重比較（必要があれば）
+z = (abs(頻度A-頻度B)-1)/sqrt(頻度A+頻度B)　でz値からpを計算。
+```{r, error=TRUE, include=TRUE}
+# カテゴリー1とカテゴリー2の比較
+z = (abs(18-24)-1)/sqrt(18+24)
+p = pnorm(z, lower.tail=FALSE)*2
+p
+
+# カテゴリー1とカテゴリー3の比較
+z = (abs(18-48)-1)/sqrt(18+48)
+p = pnorm(z, lower.tail=FALSE)*2
+p
+
+# カテゴリー2とカテゴリー3の比較
+z = (abs(24-48)-1)/sqrt(24+48)
+p = pnorm(z, lower.tail=FALSE)*2
+p
+
+# 上記で計算されるp値が 0.0167以下（0.05/3）なら有意差あり
+```
+
+多重比較の効果量が必要であれば，js-STAR の「1×2表（正確二項検定) 」を
+使用し，Rプログラムで出力されるコードをコピーアンドペーストすればよい。
+
+
 ## χ2独立性検定：2変量のχ2検定
 
 2変量のχ2検定（独立性の検定）は、2つのカテゴリ変数間の関連性を評価します。具体的には、2つの変数が互いに独立であるという帰無仮説を立て、その帰無仮説が棄却できるかどうかを試します。
