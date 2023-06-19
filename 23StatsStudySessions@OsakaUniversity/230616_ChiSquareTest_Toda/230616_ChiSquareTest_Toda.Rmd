@@ -691,6 +691,8 @@ print(test_results)
 
 検定の結果を使用して棄却領域を示すχ²分布を描くことができます。
 
+χ²統計量と自由度、そしてp値の情報を注釈として表示させてください:
+
 ```{r, error=TRUE, include=TRUE}
 # 必要なライブラリの読み込み
 library(ggplot2)
