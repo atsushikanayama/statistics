@@ -615,6 +615,14 @@ print(data)
 以下に、Rを用いた具体的な例を示します:
 
 ```{r, error=TRUE, include=TRUE}
+# Print the contents of table_data
+print(table_data)
+
+# Check the dimensions of table_data
+dim(table_data)
+```
+
+```{r, error=TRUE, include=TRUE}
 # matrix関数を用いて2行2列のクロス集計表を作成します。
 data <- matrix(c(20, 30, 25, 25), nrow = 2)
 
@@ -622,6 +630,10 @@ data <- matrix(c(20, 30, 25, 25), nrow = 2)
 rownames(data) <- c("条件B: 成功", "条件B: 失敗")
 colnames(data) <- c("条件A: 成功", "条件A: 失敗")
 
+data
+```
+
+```{r, error=TRUE, include=TRUE}
 # mcnemar.test関数を用いて、マクネマー検定を実行します。マクネマー検定は、2x2のクロス集計表に対して用いられ、関連性あるいは一貫性を評価します。
 test_results <- mcnemar.test(data)
 
@@ -669,8 +681,8 @@ str(data)
 ### Rでの実行
 
 ```{r, error=TRUE, include=TRUE}
-# table関数を用いて"data"データフレームの'story'と'play'という列に基づいたクロス集計表を作成し、"table_data"という変数に代入します。
-table_data <- table(data$story, data$play)
+table_data <- table(data$Forgive, data$Reject)
+table_data 
 ```
 
 ```{r, error=TRUE, include=TRUE}
@@ -727,7 +739,6 @@ p値が0.05未満である場合、帰無仮説を棄却し、「一緒に遊ぶ
 論文での報告は以下のようになります：
 
 「子どもたちがストーリーの結果に基づいて「一緒に遊ぶ」か「別々に遊ぶ」かの選択をした場合、その選択は均等に分布しているかをイェーツの補正を用いたマクネマー検定で評価した（McNemar's χ²(1) = 0.29, p = .59）。この結果、選択の分布が均等であるという帰無仮説は棄却されなかった。これは、ストーリーの結果が子どもたちの選択に統計的に有意な影響を与えていない可能性を示唆している。」
-
 
 # 7. χ2検定の同質性
 
