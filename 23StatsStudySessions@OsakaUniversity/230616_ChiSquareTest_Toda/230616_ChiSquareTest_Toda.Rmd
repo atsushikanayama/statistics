@@ -712,14 +712,18 @@ p <- test_results$p.value  # p値
 data_distribution <- data.frame(x = seq(0, 15, length.out = 100))
 data_distribution$y <- dchisq(data_distribution$x, df = df)
 
+# チートラインのx座標を制限範囲内に収めます。
+chi_squared_line <- ifelse(chi_squared > max(data_distribution$x)*0.8, 
+                           max(data_distribution$x)*0.8, chi_squared)
+
 # χ²分布を描画します。赤い破線はマクネマー検定で得られたχ²統計量を示します。
 ggplot(data_distribution, aes(x = x, y = y)) +  # 描画の基盤を作成
   geom_line() +  # データフレームから線グラフを描画
-  geom_vline(xintercept = chi_squared, linetype = "dashed", color = "red") +  # χ²統計量の位置に破線を描画
+  geom_vline(xintercept = chi_squared_line, linetype = "dashed", color = "red") +  # χ²統計量の位置に破線を描画
   annotate(  # χ²統計量とp値の情報を注釈として追加
     "text",
-    x = chi_squared + 1,  # 注釈のx座標
-    y = dchisq(chi_squared, df = df),  # 注釈のy座標
+    x = chi_squared_line + 1,  # 注釈のx座標
+    y = dchisq(chi_squared_line, df = df),  # 注釈のy座標
     label = paste("χ² =", round(chi_squared, 2), "\np =", round(p, 4)),  # 注釈のテキスト
     hjust = "left"  # 注釈の水平方向の位置（"left"は左寄せ）
   ) +
