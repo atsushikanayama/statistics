@@ -575,6 +575,10 @@ p値が0.05未満であれば、帰無仮説を棄却し、性別と授業に対
 フィッシャーの直接確率検定は、特に小さなサンプルサイズや期待度数が少ない場合に、χ2検定よりも高精度な結果を提供することが知られています。
     
 ```{r, error=TRUE, include=TRUE}
+# 同じデータを読み込む
+x2 <- read.csv("chap4sample2.csv", header=T) 
+x2matrix <- with(x2, table(性別, 意見))
+
 # フィッシャーの直接確率検定を計算する。
 fisher_result <- fisher.test(x2matrix) 
 

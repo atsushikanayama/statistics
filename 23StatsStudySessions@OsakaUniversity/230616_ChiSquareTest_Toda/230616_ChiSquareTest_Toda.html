@@ -1968,6 +1968,10 @@ barplot(t(x2matrix), beside = TRUE, col = c(&quot;lightblue&quot;, &quot;salmon&
 <div id="χ2検定とフィッシャーの直接確率検定の比較" class="section level2">
 <h2>χ2検定とフィッシャーの直接確率検定の比較</h2>
 <p>フィッシャーの直接確率検定は、特に小さなサンプルサイズや期待度数が少ない場合に、χ2検定よりも高精度な結果を提供することが知られています。</p>
+<pre class="r"><code># 同じデータを読み込む
+x2 &lt;- read.csv(&quot;chap4sample2.csv&quot;, header=T) 
+x2matrix &lt;- with(x2, table(性別, 意見))</code></pre>
+<pre><code>## Error in eval(substitute(expr), data, enclos = parent.frame()): object &#39;性別&#39; not found</code></pre>
 <pre class="r"><code># フィッシャーの直接確率検定を計算する。
 fisher_result &lt;- fisher.test(x2matrix) </code></pre>
 <pre><code>## Error in eval(expr, envir, enclos): object &#39;x2matrix&#39; not found</code></pre>
