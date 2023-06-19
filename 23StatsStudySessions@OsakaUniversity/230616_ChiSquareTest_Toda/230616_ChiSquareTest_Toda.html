@@ -2176,7 +2176,12 @@ learning_style &lt;- c(rep(c(&quot;視覚的&quot;, &quot;聴覚的&quot;, &quot
 data_2xC &lt;- data.frame(age_group, learning_style)
 
 # クロス集計表を作成
-cross_table &lt;- table(data_2xC)</code></pre>
+cross_table &lt;- table(data_2xC)
+cross_table</code></pre>
+<pre><code>##          learning_style
+## age_group 視覚的 聴覚的 運動性
+##      10歳     50     50     50
+##      5歳      50     50     50</code></pre>
 <pre class="r"><code># χ2検定を実行
 result_2xC &lt;- chisq.test(cross_table)
 
@@ -2214,6 +2219,11 @@ data_Rx2 &lt;- data.frame(family_environment, academic_performance)</code></pre>
 <pre class="r"><code># クロス集計表を作成
 cross_table &lt;- table(data_Rx2)</code></pre>
 <pre><code>## Error in eval(expr, envir, enclos): object &#39;data_Rx2&#39; not found</code></pre>
+<pre class="r"><code>cross_table</code></pre>
+<pre><code>##          learning_style
+## age_group 視覚的 聴覚的 運動性
+##      10歳     50     50     50
+##      5歳      50     50     50</code></pre>
 <pre class="r"><code># χ2検定を実行
 result_Rx2 &lt;- chisq.test(cross_table)
 
@@ -2237,7 +2247,13 @@ learning_style &lt;- c(rep(c(&quot;視覚的&quot;, &quot;聴覚的&quot;, &quot
 data_RxC &lt;- data.frame(age_group, learning_style)
 
 # クロス集計表を作成
-cross_table &lt;- table(data_RxC)</code></pre>
+cross_table &lt;- table(data_RxC)
+cross_table</code></pre>
+<pre><code>##          learning_style
+## age_group 視覚的 聴覚的 運動性
+##      10歳     33     34     33
+##      15歳     33     33     34
+##      5歳      34     33     33</code></pre>
 <pre class="r"><code># χ2検定を実行
 result_RxC &lt;- chisq.test(cross_table)
 

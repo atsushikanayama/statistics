@@ -760,6 +760,7 @@ data_2xC <- data.frame(age_group, learning_style)
 
 # クロス集計表を作成
 cross_table <- table(data_2xC)
+cross_table
 ```
 
 ```{r, error=TRUE, include=TRUE}
@@ -794,6 +795,7 @@ data_Rx2 <- data.frame(family_environment, academic_performance)
 
 # クロス集計表を作成
 cross_table <- table(data_Rx2)
+cross_table
 ```
 
 ```{r, error=TRUE, include=TRUE}
@@ -818,6 +820,7 @@ data_RxC <- data.frame(age_group, learning_style)
 
 # クロス集計表を作成
 cross_table <- table(data_RxC)
+cross_table
 ```
 
 ```{r, error=TRUE, include=TRUE}
@@ -826,7 +829,6 @@ result_RxC <- chisq.test(cross_table)
 
 # 結果を表示
 print(result_RxC)
-
 ```
 
 ## 「2 x C」、「R x 2」、および「R x C」の違い
