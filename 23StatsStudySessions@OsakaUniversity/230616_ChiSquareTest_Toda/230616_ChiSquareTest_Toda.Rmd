@@ -681,8 +681,8 @@ str(data)
 ### Rでの実行
 
 ```{r, error=TRUE, include=TRUE}
-table_data <- table(data$Forgive, data$Reject)
-table_data 
+table_data <- table(Forgiveness = data$Forgive, Rejection = data$Reject)
+table_data
 ```
 
 ```{r, error=TRUE, include=TRUE}

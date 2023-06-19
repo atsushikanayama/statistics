@@ -2091,12 +2091,12 @@ str(data)</code></pre>
 </div>
 <div id="rでの実行-2" class="section level3">
 <h3>Rでの実行</h3>
-<pre class="r"><code>table_data &lt;- table(data$Forgive, data$Reject)
-table_data </code></pre>
-<pre><code>##           
-##            separate together
-##   separate        7        2
-##   together       23        8</code></pre>
+<pre class="r"><code>table_data &lt;- table(Forgiveness = data$Forgive, Rejection = data$Reject)
+table_data</code></pre>
+<pre><code>##            Rejection
+## Forgiveness separate together
+##    separate        7        2
+##    together       23        8</code></pre>
 <pre class="r"><code># mcnemar.test関数を用いて、マクネマー検定を実行します。correct=TRUEオプションを指定して、イェーツの補正を適用します。
 # イェーツの補正とは二項分布が正規分布に近似するために行われる補正のことで、2×2の分割表のカイ二乗検定に用いられます。特にサンプルサイズが小さい場合に有用です。
 test_results &lt;- mcnemar.test(table_data, correct=TRUE)
