@@ -787,15 +787,15 @@ print(result_fisher)
 
 ```{r, error=TRUE, include=TRUE}
 # カテゴリとグループを生成
-family_environment <- c(rep(c("一親家庭", "両親家庭", "祖父母と同居"), each = 50))
-academic_performance <- c(rep(c("平均以上", "平均未満"), length.out = 100))
+family_environment <- rep(c("一親家庭", "両親家庭", "祖父母と同居"), each = 50)
+academic_performance <- rep(c("平均以上", "平均未満"), each = 75)
 
 # データフレームを作成
 data_Rx2 <- data.frame(family_environment, academic_performance)
 
 # クロス集計表を作成
 cross_table <- table(data_Rx2)
-cross_table
+print(cross_table)
 ```
 
 ```{r, error=TRUE, include=TRUE}

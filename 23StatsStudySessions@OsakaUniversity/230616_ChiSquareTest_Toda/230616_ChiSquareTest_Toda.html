@@ -2210,20 +2210,20 @@ print(result_fisher)</code></pre>
 <p>「R x
 2」形式は、R個のグループが2つのカテゴリに分かれている場合に使用されます。例えば、一親家庭、両親家庭、祖父母と同居の3つの家庭環境の子供たちが、学業成績が平均以上か平均未満かでどう分かれるかを調査する場合です。</p>
 <pre class="r"><code># カテゴリとグループを生成
-family_environment &lt;- c(rep(c(&quot;一親家庭&quot;, &quot;両親家庭&quot;, &quot;祖父母と同居&quot;), each = 50))
-academic_performance &lt;- c(rep(c(&quot;平均以上&quot;, &quot;平均未満&quot;), length.out = 100))
+family_environment &lt;- rep(c(&quot;一親家庭&quot;, &quot;両親家庭&quot;, &quot;祖父母と同居&quot;), each = 50)
+academic_performance &lt;- rep(c(&quot;平均以上&quot;, &quot;平均未満&quot;), each = 75)
 
 # データフレームを作成
-data_Rx2 &lt;- data.frame(family_environment, academic_performance)</code></pre>
-<pre><code>## Error in data.frame(family_environment, academic_performance): arguments imply differing number of rows: 150, 100</code></pre>
-<pre class="r"><code># クロス集計表を作成
-cross_table &lt;- table(data_Rx2)</code></pre>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;data_Rx2&#39; not found</code></pre>
-<pre class="r"><code>cross_table</code></pre>
-<pre><code>##          learning_style
-## age_group 視覚的 聴覚的 運動性
-##      10歳     50     50     50
-##      5歳      50     50     50</code></pre>
+data_Rx2 &lt;- data.frame(family_environment, academic_performance)
+
+# クロス集計表を作成
+cross_table &lt;- table(data_Rx2)
+print(cross_table)</code></pre>
+<pre><code>##                   academic_performance
+## family_environment 平均以上 平均未満
+##       一親家庭           50        0
+##       両親家庭           25       25
+##       祖父母と同居        0       50</code></pre>
 <pre class="r"><code># χ2検定を実行
 result_Rx2 &lt;- chisq.test(cross_table)
 
@@ -2233,7 +2233,7 @@ print(result_Rx2)</code></pre>
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  cross_table
-## X-squared = 0, df = 2, p-value = 1</code></pre>
+## X-squared = 100, df = 2, p-value &lt; 2.2e-16</code></pre>
 </div>
 <div id="r-x-cのχ2検定の同質性" class="section level2">
 <h2>「R x C」のχ2検定の同質性</h2>
