@@ -1,12 +1,12 @@
 ---
 title: "2023 統計勉強会 @ 大阪大学"
 output: 
-  ioslides_presentation:
-    toc: true
   html_document:
     toc: true
     toc_float: true
     theme: cosmo
+  ioslides_presentation:
+    toc: true
   word_document:
     toc: true
   beamer_presentation:
@@ -39,7 +39,7 @@ header-includes:
 #### 2023/06/16 χ2検定 by 戸田梨鈴
 
 - [スライド](https://www.dropbox.com/s/hagtd94paot9nil/230616_ChiSquareTest_Toda.pptx?dl=0)
-- [Rコード to be uploaded]()
+- [Rコード](https://raw.githubusercontent.com/atsushikanayama/statistics/main/23StatsStudySessions%40OsakaUniversity/230616_ChiSquareTest_Toda/230616_ChiSquareTest_Toda.html)
 
 ### 後期
 
