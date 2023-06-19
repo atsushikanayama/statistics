@@ -113,7 +113,7 @@ library(ggplot2)
 
 例として、2x2の観測データから自由度を計算します。
 
-```{r, error=FALSE, echo=FALSE}
+```{r, error=FALSE, echo=FALSE, message=FALSE}
 # 2x2の観測データを作成します。
 observed <- matrix(c(10, 20, 30, 40), nrow = 2)
 
