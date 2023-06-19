@@ -1,12 +1,23 @@
 ---
 title: "2023 統計勉強会 @ 大阪大学"
-output:
+output: 
+  ioslides_presentation:
+    toc: true
   html_document:
     toc: true
     toc_float: true
     theme: cosmo
+  word_document:
+    toc: true
+  beamer_presentation:
+    toc: true
+    latex_engine: xelatex
   pdf_document:
     toc: true
+    latex_engine: xelatex
+header-includes:
+  - \usepackage{xeCJK}
+  - \setCJKmainfont{Hiragino Mincho Pro}
 ---
 
 ### 前期

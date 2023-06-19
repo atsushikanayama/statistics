@@ -3,12 +3,23 @@ title: "dplyr を使った分析前の準備 by 田口恵也"
 author: "まとめ by 金山篤志"
 date: "2023-06-09"
 output: 
+  ioslides_presentation:
+    toc: true
   html_document:
     toc: true
     toc_float: true
     theme: cosmo
+  word_document:
+    toc: true
+  beamer_presentation:
+    toc: true
+    latex_engine: xelatex
   pdf_document:
     toc: true
+    latex_engine: xelatex
+header-includes:
+  - \usepackage{xeCJK}
+  - \setCJKmainfont{Hiragino Mincho Pro}
 ---
 
 # パッケージのインストールと読み込み
