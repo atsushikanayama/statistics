@@ -125,7 +125,7 @@ num_cols <- ncol(observed)
 df <- (num_rows - 1) * (num_cols - 1)
 
 # 結果を表示します。
-print(paste("自由度は:", df))
+cat("自由度は:", df, "\n")
 ```
 
 ### 自由度の増加と分布の形状
