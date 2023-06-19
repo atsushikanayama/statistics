@@ -529,7 +529,7 @@ str(x2)
 
 ```{r, error=TRUE, include=TRUE}
 # クロス集計表を作成
-x2matrix <- with(x2, table(性別, 意見))
+x2matrix <- with(x2, table(gender, answer))
 
 # 期待度数のチェック
 expected <- sum(x2matrix) * prod(dim(x2matrix)) / prod(sum(x2matrix))
@@ -577,7 +577,7 @@ p値が0.05未満であれば、帰無仮説を棄却し、性別と授業に対
 ```{r, error=TRUE, include=TRUE}
 # 同じデータを読み込む
 x2 <- read.csv("chap4sample2.csv", header=T) 
-x2matrix <- with(x2, table(性別, 意見))
+x2matrix <- with(x2, table(gender, answer))
 
 # フィッシャーの直接確率検定を計算する。
 fisher_result <- fisher.test(x2matrix) 
