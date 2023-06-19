@@ -869,10 +869,16 @@ data <- data.frame(
   Intervention = sample(c("A", "B", "C"), 300, replace = TRUE),
   Behavior = sample(c("Behavior1", "Behavior2"), 300, replace = TRUE)
 )
+head(data)
 ```
 
 ```{r, error=TRUE, include=TRUE}
-# データフレームから介入と行動についてのクロス集計表を作り、それをχ2検定に渡す
+# データフレームから介入と行動についてのクロス集計表を作る
+table(data$Intervention, data$Behavior)
+```
+
+```{r, error=TRUE, include=TRUE}
+# それをχ2検定に渡す
 chisq_res <- chisq.test(table(data$Intervention, data$Behavior))
 
 # p値を取得
@@ -925,7 +931,10 @@ data <- data.frame(
             rnorm(50, mean = 85, sd = 10),
             rnorm(50, mean = 90, sd = 10))
 )
+head(data)
+```
 
+```{r, error=TRUE, include=TRUE}
 # Intervention列の影響をスコアに対して評価するために一元配置ANOVAを適用する
 model <- aov(Score ~ Intervention, data = data)
 
