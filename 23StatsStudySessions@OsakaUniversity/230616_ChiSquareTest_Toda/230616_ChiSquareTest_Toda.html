@@ -2016,34 +2016,29 @@ print(data)</code></pre>
 <p>\[χ² = (|b - c| - 1)² / (b + c)\]</p>
 <p>このχ²の値が大きければ大きいほど、帰無仮説（条件Aと条件Bが同等の影響を及ぼす）が棄却されやすくなります。</p>
 <p>以下に、Rを用いた具体的な例を示します:</p>
-<pre class="r"><code># Print the contents of table_data
-print(table_data)</code></pre>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;table_data&#39; not found</code></pre>
-<pre class="r"><code># Check the dimensions of table_data
-dim(table_data)</code></pre>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;table_data&#39; not found</code></pre>
-<pre class="r"><code># matrix関数を用いて2行2列のクロス集計表を作成します。
+<pre class="r"><code># 2行2列のクロス集計表を作成します。
 data &lt;- matrix(c(20, 30, 25, 25), nrow = 2)
 
-# rownamesとcolnames関数を用いて、行と列の名前をそれぞれ&quot;条件B: 成功&quot;, &quot;条件B: 失敗&quot;および&quot;条件A: 成功&quot;, &quot;条件A: 失敗&quot;と指定します。
+# 行と列の名前をそれぞれ&quot;条件B: 成功&quot;, &quot;条件B: 失敗&quot;、&quot;条件A: 成功&quot;, &quot;条件A: 失敗&quot;と設定します。
 rownames(data) &lt;- c(&quot;条件B: 成功&quot;, &quot;条件B: 失敗&quot;)
 colnames(data) &lt;- c(&quot;条件A: 成功&quot;, &quot;条件A: 失敗&quot;)
 
-data</code></pre>
+# 作成したクロス集計表を出力します。
+print(data)</code></pre>
 <pre><code>##             条件A: 成功 条件A: 失敗
 ## 条件B: 成功          20          25
 ## 条件B: 失敗          30          25</code></pre>
-<pre class="r"><code># mcnemar.test関数を用いて、マクネマー検定を実行します。マクネマー検定は、2x2のクロス集計表に対して用いられ、関連性あるいは一貫性を評価します。
+<pre class="r"><code># mcnemar.test関数を用いて、マクネマー検定を実行します。この検定は、2x2のクロス集計表に対し、関連性または一貫性の評価に使用されます。
 test_results &lt;- mcnemar.test(data)
 
-# マクネマー検定の結果を表示します。
+# マクネマー検定の結果を出力します。
 print(test_results)</code></pre>
 <pre><code>## 
 ##  McNemar&#39;s Chi-squared test with continuity correction
 ## 
 ## data:  data
 ## McNemar&#39;s chi-squared = 0.29091, df = 1, p-value = 0.5896</code></pre>
-<p>この例では、条件Aと条件Bの下での成功と失敗の割合に差があるかどうかを評価しています。マクネマー検定のp値を見ることで、条件間に統計的に有意な差異があるかどうかを判断できます。</p>
+<p>この例では、条件Aと条件B下での成功と失敗の頻度に差があるかどうかを評価しています。マクネマー検定のp値により、二つの条件間に統計的に有意な差異が存在するかどうかを判断することが可能です。</p>
 </div>
 <div id="実践-2" class="section level2">
 <h2>実践</h2>
