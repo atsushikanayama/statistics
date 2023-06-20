@@ -112,12 +112,12 @@ chi_square <- z1^2 + z2^2
 
 # プロットにヒストグラムと理論的なχ²分布を表示
 p <- ggplot() +
-  geom_histogram(data = data.frame(chi_square), aes(x = chi_square, y = ..density..), bins = 50, alpha = 0.5) +
-  stat_function(fun = dchisq, args = list(df = 2), aes(color = "理論的なχ²分布"), size = 1) +
-  labs(title = "２つの独立した標準正規分布の二乗和",
-       x = "値",
-       y = "密度",
-       color = "凡例") +
+  geom_histogram(data = data.frame(chi_square), aes(x = chi_square, y = after_stat(density)), bins = 50, alpha = 0.5) +
+  stat_function(fun = dchisq, args = list(df = 2), aes(color = "Theoretical Chi-Square Distribution"), linewidth = 1) +
+  labs(title = "Sum of Squares of Two Independent Standard Normal Distributions",
+       x = "Value",
+       y = "Density",
+       color = "Legend") +
   theme_minimal()
 
 # プロットを表示
