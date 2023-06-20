@@ -180,8 +180,8 @@ cat("自由度は:", df, "\n")
 # ggplot2という描画に便利なパッケージを読み込みます。
 library(ggplot2)
 
-# 自由度というものを1,3,5,10と設定します。これはあとで分布の形を見るときに使います。
-df_values <- c(1, 3, 5, 10)  
+# 自由度というものを1, 2, 3, 4, 5, 10と設定します。これはあとで分布の形を見るときに使います。
+df_values <- c(1, 2, 3, 4, 5, 10)  
 
 # 0から30までの間を、1000等分します。これがx軸の範囲になります。
 x <- seq(0, 30, length.out = 1000) 
@@ -202,6 +202,7 @@ df_total <- do.call(rbind, df_list)
 ggplot(df_total, aes(x = x, y = y, colour = df)) + # データフレームとx軸、y軸、色を指定します。
   geom_line() + # 線を描きます。
   labs(x = "Value", y = "Density", colour = "Degrees of Freedom") + # x軸、y軸、色の説明を書きます。
+  coord_cartesian(ylim = c(0, 0.75)) + # y軸の範囲を0から0.75に制限します。
   theme_minimal() # シンプルなデザインにします。
 ```
 
@@ -249,7 +250,7 @@ library(tidyr)
 
 # 比較用のデータフレームを準備
 data <- data.frame(
-  Test = c("3x3 Dataset", "2x2 Dataset"),
+  Test = c("3x3", "2x2"),
   ChiSquareValue = c(chisq_result2$statistic, chisq_result$statistic),
   PValue = c(chisq_result2$p.value, chisq_result$p.value),
   DegreesOfFreedom = c(chisq_result2$parameter, chisq_result$parameter)
