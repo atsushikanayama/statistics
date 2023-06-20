@@ -573,6 +573,7 @@ x2 <- read.csv("chap4sample2.csv", header=T)
 # データの最初の部分を表示する。
 head(x2)
 ```
+
 データの構造の確認:
 
 ```{r, error=TRUE, include=TRUE}
@@ -587,7 +588,10 @@ str(x2)
 ```{r, error=TRUE, include=TRUE}
 # クロス集計表を作成
 x2matrix <- with(x2, table(gender, answer))
+x2matrix
+```
 
+```{r, error=TRUE, include=TRUE}
 # 期待度数のチェック
 expected <- sum(x2matrix) * prod(dim(x2matrix)) / prod(sum(x2matrix))
 
@@ -635,7 +639,10 @@ p値は0.01131となっており、これは一般的に用いられる有意水
 # 同じデータを読み込む
 x2 <- read.csv("chap4sample2.csv", header=T) 
 x2matrix <- with(x2, table(gender, answer))
+x2matrix
+```
 
+```{r, error=TRUE, include=TRUE}
 # フィッシャーの直接確率検定を計算する。
 fisher_result <- fisher.test(x2matrix) 
 
@@ -697,7 +704,7 @@ print(test_results)
 
 ### 例示の背景
 
-次の例示は、幼稚園の子供たちが2つの異なるストーリー（「許す」または「許さない」）を聞いた後に、「一緒に遊ぶ」か「別々に遊ぶ」を選ぶというものです。このシナリオは、特定のストーリーが子供たちの選択に影響を与えるかどうかを評価するために考えられたものです。
+以下の例示では、幼稚園の子供たちが2つの異なるストーリー（「許す」または「許さない」）を聞いた後、「一緒に遊ぶ」か「別々に遊ぶ」かを選択するシチュエーションについて考察します。
 
 ### 仮説の設定
 
@@ -709,15 +716,15 @@ print(test_results)
 ### データの準備
 
 ```{r}
-# read.csv関数を用いて"chap4sample3.csv"という名前のCSVファイルを読み込み、その結果を"data"という変数に代入します。
+# "chap4sample3.csv"という名前のCSVファイルをread.csv関数を用いて読み込み、その結果を"data"という変数に代入します。
 data <- read.csv("chap4sample3.csv", header=TRUE)
 
-# head関数を用いて"data"データフレームの最初の数行を表示します。これによりデータの一部を確認できます。
+# "data"データフレームの最初の数行をhead関数を用いて表示します。これによりデータの一部を確認できます。
 head(data)
 ```
 
 ```{r, error=TRUE, include=TRUE}
-# str関数を用いて"data"データフレームの構造を確認します。これによりデータの各列のタイプ、列数、行数などを確認できます。
+# "data"データフレームの構造をstr関数を用いて確認します。これによりデータの各列のタイプ、列数、行数などを確認できます。
 str(data)
 ```
 
@@ -740,48 +747,38 @@ table_data
 # イェーツの補正とは二項分布が正規分布に近似するために行われる補正のことで、2×2の分割表のχ²検定に用いられます。特にサンプルサイズが小さい場合に有用です。
 test_results <- mcnemar.test(table_data, correct=TRUE)
 
-# print関数を用いて、マクネマー検定の結果を表示します。
+# マクネマー検定の結果をprint関数を用いて表示します。
 print(test_results)
 ```
 
 ### 視覚化
 
-検定の結果を使用して棄却領域を示すχ²分布を描くことができます。
-
-χ²統計量と自由度、そしてp値の情報を注釈として表示させてください:
+次のRコードは、「許す」ストーリーと「許さない」ストーリーのそれぞれについて、「一緒に遊ぶ」選択と「別々に遊ぶ」選択の回数を示す棒グラフを描くものです。
 
 ```{r, error=TRUE, include=TRUE}
 # 必要なライブラリの読み込み
 library(ggplot2)
 
-# マクネマー検定の結果を取得します。これらの結果は既に得られています。
-chi_squared <- test_results$statistic  # χ²統計量
-df <- test_results$parameter  # 自由度
-p <- test_results$p.value  # p値
+# データの準備
+data <- data.frame(
+  Story = c(rep("Forgive", times = 7+2), rep("Do not forgive", times = 23+8)),
+  Choice = c(rep("Separate", times = 7), rep("Together", times = 2), rep("Separate", times = 23), rep("Together", times = 8))
+)
 
-# χ²分布を描くためのデータフレームを作成します。
-# xは0から15までの100等分した数値のベクトル、yはxと自由度dfに基づくχ²分布です。
-data_distribution <- data.frame(x = seq(0, 15, length.out = 100))
-data_distribution$y <- dchisq(data_distribution$x, df = df)
+# データの集計
+data_agg <- table(data)
 
-# チートラインのx座標を制限範囲内に収めます。
-chi_squared_line <- ifelse(chi_squared > max(data_distribution$x)*0.8, 
-                           max(data_distribution$x)*0.8, chi_squared)
+# 集計結果をデータフレームに変換
+data_df <- as.data.frame(data_agg)
+names(data_df) <- c("Story", "Choice", "Count")
 
-# χ²分布を描画します。赤い破線はマクネマー検定で得られたχ²統計量を示します。
-ggplot(data_distribution, aes(x = x, y = y)) +  # 描画の基盤を作成
-  geom_line() +  # データフレームから線グラフを描画
-  geom_vline(xintercept = chi_squared_line, linetype = "dashed", color = "red") +  # χ²統計量の位置に破線を描画
-  annotate(  # χ²統計量とp値の情報を注釈として追加
-    "text",
-    x = chi_squared_line + 1,  # 注釈のx座標
-    y = dchisq(chi_squared_line, df = df),  # 注釈のy座標
-    label = paste("χ² =", round(chi_squared, 2), "\np =", round(p, 4)),  # 注釈のテキスト
-    hjust = "left"  # 注釈の水平方向の位置（"left"は左寄せ）
-  ) +
-  xlab("χ²") +  # x軸ラベル
-  ylab("Density") +  # y軸ラベル
-  theme_minimal()  # テーマを設定
+# 棒グラフの描画
+ggplot(data = data_df, aes(x = Story, y = Count, fill = Choice)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_manual(values = c("blue", "orange")) +
+  labs(x = "Story", y = "Number of Children", fill = "Choice") +
+  theme_minimal() +
+  theme(text = element_text(size = 15))
 ```
 
 ### 結果の解釈
