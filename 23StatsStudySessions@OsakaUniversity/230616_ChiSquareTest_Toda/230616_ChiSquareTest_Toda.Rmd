@@ -301,19 +301,23 @@ library(tidyr)
 # 比較用のデータフレームの準備
 data <- data.frame(
   Test = c("3x3", "2x2"),
+  DegreesOfFreedom = c(chisq_result2$parameter, chisq_result$parameter),
   ChiSquareValue = c(chisq_result2$statistic, chisq_result$statistic),
-  PValue = c(chisq_result2$p.value, chisq_result$p.value),
-  DegreesOfFreedom = c(chisq_result2$parameter, chisq_result$parameter)
+  PValue = c(chisq_result2$p.value, chisq_result$p.value)
 )
 
 # プロット用のデータ整形
 data_plot <- data %>%
   pivot_longer(cols = -Test, names_to = "Metric", values_to = "Value") %>%
-  mutate(Metric = case_when(
-    Metric == "ChiSquareValue" ~ "Chi-square Value",
-    Metric == "PValue" ~ "p-value",
-    Metric == "DegreesOfFreedom" ~ "Degrees of Freedom"
-  ))
+  mutate(Metric = factor(Metric, levels = c("DegreesOfFreedom", "ChiSquareValue", "PValue")),
+         Metric = case_when(
+           Metric == "DegreesOfFreedom" ~ "Degrees of Freedom",
+           Metric == "ChiSquareValue" ~ "Chi-square Value",
+           Metric == "PValue" ~ "p-value"
+         ))
+
+# Metricの順序を指定
+data_plot$Metric <- factor(data_plot$Metric, levels = c("Degrees of Freedom", "Chi-square Value", "p-value"))
 
 # χ²値、p値、自由度の比較用バープロットの作成
 p <- ggplot(data_plot, aes(x = Test, y = Value, fill = Metric)) +
