@@ -615,9 +615,14 @@ print(result)
 ### 視覚化
 
 ```{r, error=TRUE, include=TRUE}
+# データの準備
+data_matrix <- matrix(c(14, 5, 6, 15), nrow = 2, byrow = TRUE)
+rownames(data_matrix) <- c("Female", "Male")
+colnames(data_matrix) <- c("Agree", "Disagree")
+
 # データの視覚化
-barplot(t(x2matrix), beside = TRUE, col = c("lightblue", "salmon"), 
-        legend = rownames(x2matrix), ylim = c(0, max(x2matrix)*1.2), 
+barplot(data_matrix, beside = TRUE, col = c("lightblue", "salmon"), 
+        legend.text = rownames(data_matrix), ylim = c(0, max(data_matrix)*1.2), 
         ylab = "Counts", xlab = "Opinions", main = "Chi-Square Test of Independence")
 ```
 
