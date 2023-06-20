@@ -3,12 +3,12 @@ title: "Rの基礎 by 田辺和奏"
 author: "まとめ by 金山篤志"
 date: "2023-06-09"
 output: 
-  ioslides_presentation:
-    toc: true
   html_document:
     toc: true
     toc_float: true
     theme: cosmo
+  ioslides_presentation:
+    toc: true
   word_document:
     toc: true
   beamer_presentation:
@@ -21,6 +21,15 @@ header-includes:
   - \usepackage{xeCJK}
   - \setCJKmainfont{Hiragino Mincho Pro}
 ---
+
+目次
+
+1. RStudioの基本操作
+   - RStudioの構成
+2. Rコマンドの実行
+   - オブジェクトの作成と確認
+   - Rでのファイルの読み書き
+3. RやRStudioで困ったときの対処法
 
 # RStudioの基本操作
 
