@@ -222,48 +222,77 @@ df <- (num_rows - 1) * (num_cols - 1)
 cat("自由度は:", df, "\n")
 ```
 
-### 自由度の増加と分布の形状
+### 自由度と分布の形状
 
-χ²検定の結果は自由度によって影響を受けます。自由度が変化した場合にχ²検定の結果がどのように変わるかを観察するために、3x3と2x2の異なる観測データセットを使用してχ²検定を行います。
+χ²分布の形状は、その自由度により決まります。自由度とは、統計的な解析で自由に変動できる値の数を示します。
 
-まずは3x3の観測データを用いてχ²検定を行い、その後2x2の観測データを使用して同じ検定を実施します。
+自由度が1のχ²分布は、原点から離れたところでピークを持ち、右に偏った形状を示します。しかし、自由度が増加すると、分布の形状は徐々に正規分布に近づき、ピークも原点から遠くに移動します。つまり、自由度が増えると、分布は右にシフトし、分布の広がり（すなわち、分布のばらつき）が増加します。
+
+次のグラフは自由度が1から10までのχ²分布を描画し、自由度が増加するにつれて分布の形状がどのように変わるかを視覚的に示したものです。
+
+```{r, error=FALSE, echo=FALSE}
+# 自由度が1から10までのχ²分布のプロット
+df_list <- list()
+for (df in 1:10) {
+  df_list[[df]] <- data.frame(x = seq(0, 30, length.out = 1000), 
+                              y = dchisq(seq(0, 30, length.out = 1000), df), 
+                              df = factor(df))
+}
+df_all <- do.call(rbind, df_list)
+
+# χ²分布の描画
+ggplot(df_all, aes(x = x, y = y, color = df)) +
+  geom_line() +
+  labs(x = "Value", y = "Density", color = "Degrees of Freedom") +
+  coord_cartesian(ylim = c(0, 0.6)) + # y軸の範囲を0から0.75に制限します。
+  theme_minimal() + # シンプルなデザインにします。
+  ggtitle("Degrees of Freedom 1-10: Chi-square Distributions")
+```
+
+自由度が増えるとχ²分布は右にシフトし、徐々に正規分布に近づいていくことがわかります。
+
+### 自由度の検定の結果
+
+χ²検定の結果は、自由度に強く影響されます。自由度が変われば、χ²検定の結果も必然的に変化します。今回、3x3と2x2の異なる観測データセットを用いて、自由度の違いがχ²検定結果にどのように影響を及ぼすかを評価します。
+
+まず、3x3の観測データセットを用いてχ²検定を行い、次に2x2の観測データセットで同じ検定を実施し、それぞれの結果を比較します。
 
 ```{r, error=FALSE, echo=FALSE, message=FALSE}
 # dplyrパッケージの読み込み
 library(dplyr)
 
-# 3x3の観測データの生成
+# 3x3観測データの作成
 observed2 <- matrix(c(10, 20, 30, 40, 50, 60, 70, 80, 90), nrow = 3)
 cat("3x3観測データ:\n")
 print(observed2)
 
-# 3x3のデータを用いたχ²検定
+# 3x3データを用いたχ²検定の実行
 chisq_result2 <- chisq.test(observed2)
 
 # χ²値、p値、自由度の表示
-cat("3x3データに対するχ²値は: ", chisq_result2$statistic, "\n")
-cat("3x3データに対するp値は: ", chisq_result2$p.value, "\n")
-cat("3x3データに対する自由度は: ", chisq_result2$parameter, "\n")
+cat("3x3データに対するχ²値: ", chisq_result2$statistic, "\n")
+cat("3x3データに対するp値: ", chisq_result2$p.value, "\n")
+cat("3x3データに対する自由度: ", chisq_result2$parameter, "\n")
 ```
 
-次に、2x2のデータセットを用いて同様のχ²検定を行います。
+続いて、2x2のデータセットを用いて同様のχ²検定を行います。
 
 ```{r, error=FALSE, echo=FALSE, message=FALSE}
-# 2x2の観測データの生成
+# 2x2観測データの作成
 observed <- matrix(c(10, 20, 30, 40), nrow = 2)
 cat("2x2観測データ:\n")
 print(observed)
 
-# 2x2のデータを用いたχ²検定
+# 2x2データを用いたχ²検定の実行
 chisq_result <- chisq.test(observed)
 
 # χ²値、p値、自由度の表示
-cat("2x2データに対するχ²値は: ", chisq_result$statistic, "\n")
-cat("2x2データに対するp値は: ", chisq_result$p.value, "\n")
-cat("2x2データに対する自由度は: ", chisq_result$parameter, "\n")
+cat("2x2データに対するχ²値: ", chisq_result$statistic, "\n")
+cat("2x2データに対するp値: ", chisq_result$p.value, "\n")
+cat("2x2データに対する自由度: ", chisq_result$parameter, "\n")
 ```
 
-これらの結果から、自由度が変化したときにχ²検定の結果（χ²値、p値、自由度）がどのように変化するかを比較します。
+これらの結果を元に、自由度の違いがχ²検定結果（χ²値とp値）にどのように影響するかを比較します。
 
 ```{r, error=FALSE, echo=FALSE, message=FALSE}
 # パッケージの読み込み
@@ -303,28 +332,11 @@ p <- ggplot(data_plot, aes(x = Test, y = Value, fill = Metric)) +
 p
 ```
 
-さらに、自由度が1から10までのときのχ²分布をプロットし、自由度が増加するにつれて分布の形状がどのように変化するかを視覚的に確認します。
+自由度はχ²検定の結果（χ²値とp値）に以下のように影響を与えます：
 
-```{r, error=FALSE, echo=FALSE}
-# 自由度が1から10までのχ²分布のプロット
-df_list <- list()
-for (df in 1:10) {
-  df_list[[df]] <- data.frame(x = seq(0, 30, length.out = 1000), 
-                              y = dchisq(seq(0, 30, length.out = 1000), df), 
-                              df = factor(df))
-}
-df_all <- do.call(rbind, df_list)
+- **χ²値**：自由度が増えると、χ²値の範囲（すなわち、可能な最小値と最大値）も増えます。これは、より多くのセル（つまり自由度が高い）を持つテーブルでは、観測された値と期待される値との間により大きな差が生じる可能性が高まるためです。
 
-# χ²分布の描画
-ggplot(df_all, aes(x = x, y = y, color = df)) +
-  geom_line() +
-  labs(x = "Value", y = "Density", color = "Degrees of Freedom") +
-  coord_cartesian(ylim = c(0, 0.6)) + # y軸の範囲を0から0.75に制限します。
-  theme_minimal() + # シンプルなデザインにします。
-  ggtitle("Degrees of Freedom 1-10: Chi-square Distributions")
-```
-
-このように自由度が増えるとχ²分布は右にシフトし、徐々に正規分布に近づいていくことがわかります。
+- **p値**：p値は、観測された（またはより極端な）データが、帰無仮説が真であるという前提のもとで生じる確率を示します。自由度が増えると、χ²分布の形状が変わり（具体的には、分布が右にシフトし、広がりが大きくなります）、これによりp値も変化します。特定のχ²値が与えられたとき、自由度が高いほどそのχ²値を得る確率は高くなり、したがってp値は大きくなります。
 
 # 3. χ²検定
 
