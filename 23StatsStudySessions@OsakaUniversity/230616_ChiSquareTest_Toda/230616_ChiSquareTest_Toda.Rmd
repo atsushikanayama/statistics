@@ -252,7 +252,7 @@ df_total <- do.call(rbind, df_list)
 ggplot(df_total, aes(x = x, y = y, colour = df)) + # データフレームとx軸、y軸、色を指定します。
   geom_line() + # 線を描きます。
   labs(x = "Value", y = "Density", colour = "Degrees of Freedom") + # x軸、y軸、色の説明を書きます。
-  coord_cartesian(ylim = c(0, 0.75)) + # y軸の範囲を0から0.75に制限します。
+  coord_cartesian(ylim = c(0, 0.6)) + # y軸の範囲を0から0.75に制限します。
   theme_minimal() # シンプルなデザインにします。
 ```
 
