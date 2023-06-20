@@ -224,53 +224,23 @@ cat("自由度は:", df, "\n")
 
 ### 自由度の増加と分布の形状
 
-自由度が増えると、χ²分布の形状は徐々に正規分布に近づいていきます。以下で、自由度が1, 2, 3, 4, 5, 10のχ²分布の形状を比較します。
+χ²検定の結果は自由度によって影響を受けます。自由度が変化した場合にχ²検定の結果がどのように変わるかを観察するために、3x3と2x2の異なる観測データセットを使用してχ²検定を行います。
 
-```{r, error=FALSE, echo=FALSE, message=FALSE}
-# ggplot2という描画に便利なパッケージを読み込みます。
-library(ggplot2)
-
-# 自由度というものを1, 2, 3, 4, 5, 10と設定します。これはあとで分布の形を見るときに使います。
-df_values <- c(1, 2, 3, 4, 5, 10)  
-
-# 0から30までの間を、1000等分します。これがx軸の範囲になります。
-x <- seq(0, 30, length.out = 1000) 
-
-# df_valuesの各値に対して、以下の関数を適用します。
-df_list <- lapply(df_values, function(df) { 
-  data.frame(
-    x = x,
-    y = dchisq(x, df = df), # xの各値に対して、χ²分布の値を計算します。その分布の自由度は上で指定したdfです。
-    df = as.factor(df) # 自由度dfを因子に変換してデータフレームに入れます。
-  )
-})
-
-# 各自由度のデータフレームを一つにまとめます。
-df_total <- do.call(rbind, df_list)
-
-# 以下でグラフを描きます。
-ggplot(df_total, aes(x = x, y = y, colour = df)) + # データフレームとx軸、y軸、色を指定します。
-  geom_line() + # 線を描きます。
-  labs(x = "Value", y = "Density", colour = "Degrees of Freedom") + # x軸、y軸、色の説明を書きます。
-  coord_cartesian(ylim = c(0, 0.6)) + # y軸の範囲を0から0.75に制限します。
-  theme_minimal() # シンプルなデザインにします。
-```
-
-χ²検定の結果は自由度によって影響を受けます。その影響を視覚的に理解するために、まず3x3の観測データを元にχ²検定を行い、その後で2x2の観測データを元にχ²検定を行います。これにより、自由度が変化した場合にχ²検定の結果がどのように変わるかを観察します。
+まずは3x3の観測データを用いてχ²検定を行い、その後2x2の観測データを使用して同じ検定を実施します。
 
 ```{r, error=FALSE, echo=FALSE, message=FALSE}
 # dplyrパッケージの読み込み
 library(dplyr)
 
-# 3x3の観測データを作成します
+# 3x3の観測データの生成
 observed2 <- matrix(c(10, 20, 30, 40, 50, 60, 70, 80, 90), nrow = 3)
 cat("3x3観測データ:\n")
 print(observed2)
 
-# 3x3のデータに対してχ²検定を行います。デフォルトでは自由度は（行数-1）×（列数-1）で計算されます。
+# 3x3のデータを用いたχ²検定
 chisq_result2 <- chisq.test(observed2)
 
-# χ²値、p値、自由度を表示します。
+# χ²値、p値、自由度の表示
 cat("3x3データに対するχ²値は: ", chisq_result2$statistic, "\n")
 cat("3x3データに対するp値は: ", chisq_result2$p.value, "\n")
 cat("3x3データに対する自由度は: ", chisq_result2$parameter, "\n")
@@ -279,26 +249,27 @@ cat("3x3データに対する自由度は: ", chisq_result2$parameter, "\n")
 次に、2x2のデータセットを用いて同様のχ²検定を行います。
 
 ```{r, error=FALSE, echo=FALSE, message=FALSE}
-# 2x2の観測データを作成します
+# 2x2の観測データの生成
 observed <- matrix(c(10, 20, 30, 40), nrow = 2)
 cat("2x2観測データ:\n")
 print(observed)
 
-# 2x2のデータに対してχ²検定を行います。デフォルトでは自由度は（行数-1）×（列数-1）で計算されます。
+# 2x2のデータを用いたχ²検定
 chisq_result <- chisq.test(observed)
 
-# χ²値、p値、自由度を表示します。
+# χ²値、p値、自由度の表示
 cat("2x2データに対するχ²値は: ", chisq_result$statistic, "\n")
 cat("2x2データに対するp値は: ", chisq_result$p.value, "\n")
 cat("2x2データに対する自由度は: ", chisq_result$parameter, "\n")
 ```
 
-以上の2つの結果から、自由度が変化した場合のχ²検定の結果（χ²値、p値、自由度）の違いを比較します。
+これらの結果から、自由度が変化したときにχ²検定の結果（χ²値、p値、自由度）がどのように変化するかを比較します。
 
 ```{r, error=FALSE, echo=FALSE, message=FALSE}
+# パッケージの読み込み
 library(tidyr)
 
-# 比較用のデータフレームを準備
+# 比較用のデータフレームの準備
 data <- data.frame(
   Test = c("3x3", "2x2"),
   ChiSquareValue = c(chisq_result2$statistic, chisq_result$statistic),
@@ -306,7 +277,7 @@ data <- data.frame(
   DegreesOfFreedom = c(chisq_result2$parameter, chisq_result$parameter)
 )
 
-# プロット用にデータを整形
+# プロット用のデータ整形
 data_plot <- data %>%
   pivot_longer(cols = -Test, names_to = "Metric", values_to = "Value") %>%
   mutate(Metric = case_when(
@@ -315,7 +286,7 @@ data_plot <- data %>%
     Metric == "DegreesOfFreedom" ~ "Degrees of Freedom"
   ))
 
-# バープロットを作成し、χ²値、p値、自由度を比較
+# χ²値、p値、自由度の比較用バープロットの作成
 p <- ggplot(data_plot, aes(x = Test, y = Value, fill = Metric)) +
   geom_bar(stat = "identity", position = "dodge", color = "black") +
   scale_fill_brewer(palette = "Set2", name = "") +
@@ -328,14 +299,14 @@ p <- ggplot(data_plot, aes(x = Test, y = Value, fill = Metric)) +
         axis.title.y = element_text(size = 14, face = "bold")) +
   ggtitle("Comparison of 3x3 and 2x2 Datasets")
 
-# バープロットを表示
+# バープロットの表示
 p
 ```
 
-次に、自由度が1から10までのときのχ²分布を描画し、自由度が増加するにつれて分布の形状がどのように変化するかを確認します。
+さらに、自由度が1から10までのときのχ²分布をプロットし、自由度が増加するにつれて分布の形状がどのように変化するかを視覚的に確認します。
 
 ```{r, error=FALSE, echo=FALSE}
-# 自由度が1から10までのχ²分布をプロットします
+# 自由度が1から10までのχ²分布のプロット
 df_list <- list()
 for (df in 1:10) {
   df_list[[df]] <- data.frame(x = seq(0, 30, length.out = 1000), 
@@ -344,15 +315,16 @@ for (df in 1:10) {
 }
 df_all <- do.call(rbind, df_list)
 
-# χ²分布を描画します
+# χ²分布の描画
 ggplot(df_all, aes(x = x, y = y, color = df)) +
   geom_line() +
   labs(x = "Value", y = "Density", color = "Degrees of Freedom") +
-  theme_minimal() +
+  coord_cartesian(ylim = c(0, 0.6)) + # y軸の範囲を0から0.75に制限します。
+  theme_minimal() + # シンプルなデザインにします。
   ggtitle("Degrees of Freedom 1-10: Chi-square Distributions")
 ```
 
-以上の結果から、自由度が増えるとχ²分布は右にシフトし、形状も変化します。自由度はχ²検定の結果に影響を及ぼすため、その概念を理解することは統計的分析を行う上で重要です。
+このように自由度が増えるとχ²分布は右にシフトし、徐々に正規分布に近づいていくことがわかります。
 
 # 3. χ²検定
 
