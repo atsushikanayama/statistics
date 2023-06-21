@@ -39,7 +39,7 @@ header-includes:
 #### 2023/06/16 χ2検定 by 戸田梨鈴
 
 - [スライド](https://www.dropbox.com/s/hagtd94paot9nil/230616_ChiSquareTest_Toda.pptx?dl=0)
-- [Rコード](https://dent-false-william.glitch.me/23StatsStudySessions%40OsakaUniversity/230616_ChiSquareTest_Toda/230616_ChiSquareTest_Toda.html)
+- [Rコード](https://raw.githubusercontent.com/atsushikanayama/statistics/main/23StatsStudySessions%40OsakaUniversity/230616_ChiSquareTest_Toda/230616_ChiSquareTest_Toda.html)
 
 #### 2023/06/23 t検定 by 坂口さん・大西さん
 
