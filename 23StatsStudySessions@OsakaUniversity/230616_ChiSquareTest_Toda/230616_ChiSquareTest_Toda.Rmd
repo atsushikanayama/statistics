@@ -480,6 +480,50 @@ test_results <- chisq.test(x1table)
 test_results
 ```
 
+```{r, error=FALSE, echo=FALSE, message=FALSE}
+# 必要なライブラリを読み込む
+library(ggplot2)
+
+# χ^2分布のパラメータ
+df <- 1 # 自由度
+
+# χ^2分布の確率密度関数の範囲を設定
+x <- seq(0, 10, length.out = 1000)
+y <- dchisq(x, df)
+
+# データフレームを作成
+df_chi_sq <- data.frame(x = x, y = y)
+
+# プロット
+p <- ggplot(df_chi_sq, aes(x = x, y = y)) + 
+  geom_line(colour = "blue") +
+  labs(x = "Chi-squared", y = "Density", title = "χ^2 Distribution with df = 1") +
+  theme_minimal()
+
+# Chi-squaredの値
+chi_squared <- 5
+
+# Chi-squaredの値をプロットに追加
+p <- p + 
+  geom_vline(xintercept = chi_squared, linetype = "dashed", colour = "red") + 
+  annotate("text", x = chi_squared, y = 3, 
+           label = paste("Chi-squared =", chi_squared), 
+           vjust = 0, hjust = 0.2, colour = "black")
+
+# 有意水準0.05に対応するχ^2の値を計算
+critical_value <- qchisq(0.95, df)
+
+# 有意水準をプロットに追加
+p <- p + 
+  geom_vline(xintercept = critical_value, linetype = "dashed", colour = "green") +
+  annotate("text", x = critical_value, y = 3, 
+           label = paste("Critical Value =", round(critical_value, 2), "(α = 0.05)"), 
+           vjust = 0, hjust = 0.9, colour = "black")
+
+# プロットを表示
+print(p)
+```
+
 p値が0.05より小さい場合、観測されたデータが期待される分布と有意に異なると解釈されます。
 
 ### 視覚化
@@ -591,17 +635,6 @@ x2matrix <- with(x2, table(gender, answer))
 x2matrix
 ```
 
-```{r, error=TRUE, include=TRUE}
-# 期待度数のチェック
-expected <- sum(x2matrix) * prod(dim(x2matrix)) / prod(sum(x2matrix))
-
-if(all(expected >= 5)){
-  print("期待度数は全て5以上なので、χ²検定を適用可能です。")
-} else {
-  print("期待度数が5未満のセルが存在するため、χ²検定を適用することはできません。")
-}
-```
-
 ### Rでの実行
 
 ```{r, error=TRUE, include=TRUE}
@@ -612,16 +645,54 @@ result <- chisq.test(x2matrix)
 print(result)
 ```
 
+```{r, error=FALSE, echo=FALSE, message=FALSE}
+# 必要なライブラリを読み込む
+library(ggplot2)
+
+# χ^2分布のパラメータ
+df <- 1 # 自由度
+
+# χ^2分布の確率密度関数の範囲を設定
+x <- seq(0, 10, length.out = 1000)
+y <- dchisq(x, df)
+
+# データフレームを作成
+df_chi_sq <- data.frame(x = x, y = y)
+
+# プロット
+p <- ggplot(df_chi_sq, aes(x = x, y = y)) + 
+  geom_line(colour = "blue") +
+  labs(x = "X-squared", y = "Density", title = "χ^2 Distribution with df = 1") +
+  theme_minimal()
+
+# X-squaredの値
+x_squared <- 6.416
+
+# X-squaredの値をプロットに追加
+p <- p + 
+  geom_vline(xintercept = x_squared, linetype = "dashed", colour = "red") + 
+  annotate("text", x = x_squared, y = 3, 
+           label = paste("X-squared =", x_squared), 
+           vjust = 0, hjust = 0.5, colour = "black")
+
+# 有意水準0.05に対応するχ^2の値を計算
+critical_value <- qchisq(0.95, df)
+
+# 有意水準をプロットに追加
+p <- p + 
+  geom_vline(xintercept = critical_value, linetype = "dashed", colour = "green") +
+  annotate("text", x = critical_value, y = 3, 
+           label = paste("Critical Value =", round(critical_value, 2), "(α = 0.05)"), 
+           vjust = 0, hjust = 0.7, colour = "black")
+
+# プロットを表示
+print(p)
+```
+
 ### 視覚化
 
 ```{r, error=TRUE, include=TRUE}
-# データの準備
-data_matrix <- matrix(c(14, 5, 6, 15), nrow = 2, byrow = TRUE)
-rownames(data_matrix) <- c("Female", "Male")
-colnames(data_matrix) <- c("Agree", "Disagree")
-
-# データの視覚化
-barplot(data_matrix, beside = TRUE, col = c("lightblue", "salmon"), 
+barplot(x2matrix, beside = TRUE, col = c("lightblue", "salmon"), 
         legend.text = rownames(data_matrix), ylim = c(0, max(data_matrix)*1.2), 
         ylab = "Counts", xlab = "Opinions", main = "Chi-Square Test of Independence")
 ```
@@ -754,6 +825,50 @@ test_results <- mcnemar.test(table_data, correct=TRUE)
 
 # マクネマー検定の結果をprint関数を用いて表示します。
 print(test_results)
+```
+
+```{r, error=FALSE, echo=FALSE, message=FALSE}
+# 必要なライブラリを読み込む
+library(ggplot2)
+
+# χ^2分布のパラメータ
+df <- 1 # 自由度
+
+# χ^2分布の確率密度関数の範囲を設定
+x <- seq(0, 25, length.out = 1000)
+y <- dchisq(x, df)
+
+# データフレームを作成
+df_chi_sq <- data.frame(x = x, y = y)
+
+# プロット
+p <- ggplot(df_chi_sq, aes(x = x, y = y)) + 
+  geom_line(colour = "blue") +
+  labs(x = "McNemar's Chi-squared", y = "Density", title = "χ^2 Distribution with df = 1") +
+  theme_minimal()
+
+# McNemar's Chi-squaredの値
+mcnemars_chi_squared <- 16
+
+# McNemar's Chi-squaredの値をプロットに追加
+p <- p + 
+  geom_vline(xintercept = mcnemars_chi_squared, linetype = "dashed", colour = "red") + 
+  annotate("text", x = mcnemars_chi_squared, y = 3, 
+           label = paste("McNemar's Chi-squared =", mcnemars_chi_squared), 
+           vjust = 4, hjust = 0.5, colour = "black")
+
+# 有意水準0.05に対応するχ^2の値を計算
+critical_value <- qchisq(0.95, df)
+
+# 有意水準をプロットに追加
+p <- p + 
+  geom_vline(xintercept = critical_value, linetype = "dashed", colour = "green") +
+  annotate("text", x = critical_value, y = 3, 
+           label = paste("Critical Value =", round(critical_value, 2), "(α = 0.05)"), 
+           vjust = 4, hjust = 0.4, colour = "black")
+
+# プロットを表示
+print(p)
 ```
 
 ### 視覚化
