@@ -53,15 +53,15 @@ library(ggplot2)
 5. 2変量のχ²検定（独立性の検定）
    - 理論
    - 実践
-   - χ²検定とフィッシャーの直接確率検定の比較
+   - フィッシャーの正確性検定（サンプルサイズが小さい場合）
 6. マクネマー検定
    - 理論
    - 実践
-7. χ²検定の同質性（同質性の検定）
+7. 同質性の検定
    - 理論
-   - 実践:「2 x C」のχ²検定の同質性
-   - 実践:「R x 2」のχ²検定の同質性
-   - 実践:「R x C」のχ²検定の同質性
+   - 実践:「2 x C」のχ²同質性検定
+   - 実践:「R x 2」のχ²同質性検定
+   - 実践:「R x C」のχ²同質性検定
 8. 多重比較
    - 多重比較の種類
    - 独立性の検定と多重比較補正の使用例
@@ -384,6 +384,11 @@ p
 
 3. **χ²統計量の計算**:
     - χ²値は、観測された頻度と期待される頻度との間の差を考慮して計算されます。
+    - 検定により期待度数の計算方法は異なります:
+       - 適合度検定では、期待度数は理論的な分布に基づいて計算されます。
+       - 独立性検定では、期待度数は全体の頻度分布に基づいて計算されます。
+       - マクネマー検定では、
+       - 同質性検定では、期待度数は各グループ内の頻度分布に基づいて計算されます。
 
 4. **p値の計算**:
     - χ²分布表または統計ソフトウェアを使用し、算出されたχ²値と自由度（通常は「カテゴリ数 - 1」）に基づきp値を計算します。
@@ -396,7 +401,7 @@ p
        - 2変量のχ²検定（独立性の検定）: 一般的な効果量としてCramerのVがあります。また、2つの二項変数間の相関を測定するためにφ係数（phi coefficient）を使用することもあります。
        - フィッシャーの直接確率検定: 一般的にオッズ比やリスク比が用いられますが、相対リスク（Relative Risk）など他の指標も参考にされることがあります。
        - マクネマー検定: マクネマーのオッズ比が主要な効果量ですが、一対の値についての変化の程度を測定するモノメンチのΔ（McNemar's Delta）も用いられます。
-       - 同質性の検定:「2 x C」、「R x 2」、「R x C」形式の同質性の検定では、効果量としてCramér's VやPhi係数が用いられます。これらの指標は、カテゴリ間の関連性の強さを示します。
+       - 同質性の検定:「2 x C」、「R x 2」、「R x C」のデータ形式では、効果量としてCramér's VやPhi係数が用いられます。これらの指標は、カテゴリ間の関連性の強さを示します。
 
 6. **結果の解釈**:
     - χ²検定の結果は、χ²値、自由度、p値、そして効果量（例えばCramer's V）を用いて報告されます。p値が有意水準（通常は0.05）以下であれば、帰無仮説を棄却し、観測された頻度分布と期待される頻度分布との間に有意な差があると結論づけます。
@@ -567,7 +572,7 @@ df_chi_sq <- data.frame(x = x, y = y)
 
 # プロット
 p <- ggplot(df_chi_sq, aes(x = x, y = y)) + 
-  geom_line(colour = "blue") +
+  geom_line(colour = "black") +
   labs(x = "Chi-squared", y = "Density", title = "χ^2 Distribution with df = 1") +
   theme_minimal()
 
@@ -576,7 +581,7 @@ chi_squared <- 5
 
 # Chi-squaredの値をプロットに追加
 p <- p + 
-  geom_vline(xintercept = chi_squared, linetype = "dashed", colour = "red") + 
+  geom_vline(xintercept = chi_squared, linetype = "dashed", colour = "black") + 
   annotate("text", x = chi_squared, y = 3, 
            label = paste("Chi-squared =", chi_squared, "(α = 0.02535)"), 
            vjust = 0, hjust = 0.1, colour = "black")
@@ -586,10 +591,10 @@ critical_value <- qchisq(0.95, df)
 
 # 有意水準をプロットに追加
 p <- p + 
-  geom_vline(xintercept = critical_value, linetype = "dashed", colour = "green") +
+  geom_vline(xintercept = critical_value, linetype = "dashed", colour = "red") +
   annotate("text", x = critical_value, y = 3, 
            label = paste("Critical Value =", round(critical_value, 2), "(α = 0.05)"), 
-           vjust = 0, hjust = 0.9, colour = "black")
+           vjust = 0, hjust = 0.9, colour = "red")
 
 # プロットを表示
 print(p)
@@ -780,7 +785,7 @@ df_chi_sq <- data.frame(x = x, y = y)
 
 # プロット
 p <- ggplot(df_chi_sq, aes(x = x, y = y)) + 
-  geom_line(colour = "blue") +
+  geom_line(colour = "black") +
   labs(x = "X-squared", y = "Density", title = "χ^2 Distribution with df = 1") +
   theme_minimal()
 
@@ -789,7 +794,7 @@ x_squared <- 6.416
 
 # X-squaredの値をプロットに追加
 p <- p + 
-  geom_vline(xintercept = x_squared, linetype = "dashed", colour = "red") + 
+  geom_vline(xintercept = x_squared, linetype = "dashed", colour = "black") + 
   annotate("text", x = x_squared, y = 3, 
            label = paste("X-squared =", x_squared, "(α = 0.01131)"), 
            vjust = 1, hjust = 0.3, colour = "black")
@@ -799,10 +804,10 @@ critical_value <- qchisq(0.95, df)
 
 # 有意水準をプロットに追加
 p <- p + 
-  geom_vline(xintercept = critical_value, linetype = "dashed", colour = "green") +
+  geom_vline(xintercept = critical_value, linetype = "dashed", colour = "red") +
   annotate("text", x = critical_value, y = 3, 
            label = paste("Critical Value =", round(critical_value, 2), "(α = 0.05)"), 
-           vjust = 1, hjust = 0.7, colour = "black")
+           vjust = 1, hjust = 0.7, colour = "red")
 
 # プロットを表示
 print(p)
@@ -826,9 +831,9 @@ p値は0.01131であり、これは一般的に用いられる有意水準0.05�
 
 「χ²独立性検定を使用して、小学生の性別（男性、女性）と授業評価（同意、不同意）の間の関連性を評価した。検定結果は、χ²(1) = 6.416, p = .011、となり、性別と授業評価の間に有意な関連性が存在することを示している。クラメールのVの値は0.4005であり、性別と授業評価の間に中程度の関連性があることを示している（ただし、この効果量の解釈は一般的なガイドラインに過ぎず、具体的な解釈は先行研究との比較を必要とします）。したがって、性別は授業評価に影響を及ぼす可能性があることが示唆された。」
 
-## χ²検定とフィッシャーの正確確率検定の比較
+## フィッシャーの正確性検定（サンプルサイズが小さい場合）
 
-フィッシャーの正確確率検定は特にサンプルサイズが小さかったり、期待頻度が一部のカテゴリで低い場合に、χ²検定よりも精度の高い結果を提供します。
+サンプルサイズが小さい場合は、Fisherの正確性検定を使用することで、より信頼性のある結果を得ることができます。
 
 ### データの準備
 
@@ -848,17 +853,17 @@ print(fisher_result)
 
 ### 結果の解釈
 
-フィッシャーの正確確率検定の結果、p値は0.01039となり、これは一般的に用いられる有意水準0.05を下回ります。したがって、性別と授業評価の間には統計的に有意な関連性が存在すると結論付けられます。また、オッズ比（odds ratio）は6.614723と推定され、その95%信頼区間は1.457116から35.737819までとなりました。オッズ比は効果量を表す一種の指標であり、これは性別の影響が授業評価に対して6.614723倍になることを示しています。これは性別が授業評価に大きな影響を及ぼす可能性があることを示唆しています。
+フィッシャーの正確確率検定により、p値が0.01039となりました。この値は通常用いられる有意水準0.05よりも小さいため、性別と授業評価の間には統計的に有意な関連性が存在すると推定できます。さらに、オッズ比（odds ratio）は6.614723と求まり、その95%信頼区間は1.457116から35.737819にわたります。オッズ比とは効果量の指標の一種であり、この値は性別が授業評価に6.614723倍の影響を与えることを示しています。これは性別が授業評価に対して大きな影響を及ぼす可能性があることを示唆しています。
 
-しかし、オッズ比やその信頼区間の解釈には注意が必要です。信頼区間が広い（1.457116から35.737819）場合、効果量の不確実性が高いことを示します。つまり、性別が授業評価に及ぼす影響は比較的大きいかもしれないが、その程度ははっきりしないということです。
+しかし、オッズ比とその信頼区間の解釈は注意が必要です。信頼区間が広範囲にわたる（1.457116から35.737819）場合、効果量の不確実性が高いことを示しています。つまり、性別が授業評価に及ぼす影響は相当大きいかもしれませんが、その具体的な程度は確定的ではないということです。
+
+### 結果の報告
+
+「フィッシャーの正確性検定を用いて性別と授業評価の間の関連性を調査した。その結果、性別と授業評価の間に統計的に有意な関連性があることが示された（p = .010）。この関連性の大きさをオッズ比で表現すると6.61 (95% CI [1.46, 35.74]) となった。この結果は、性別が授業評価に有意な影響を持つ可能性があることを示唆している。」
 
 ### χ²検定との比較
 
-フィッシャーの正確確率検定とχ²検定の結果は、両方とも性別と授業評価の間に有意な関連性が存在することを示しています。ただし、フィッシャーの正確確率検定はさらにオッズ比とその信頼区間を提供し、効果量の評価に役立ちます。
-
-フィッシャーの正確確率検定によるp値はχ²検定によるものよりもわずかに低く、いずれも一般的な有意水準0.05を下回っています。したがって、どちらの検定も性別と授業評価の間に有意な関連性があると結論付けています。
-
-ただし、サンプルサイズが小さい場合や期待頻度が低い場合は、フィッシャーの正確確率検定がχ²検定よりも適切な選択となる可能性があることを覚えておいてください。
+フィッシャーの正確性検定とχ²検定の結果は一致し、両方とも性別と授業評価の間に統計的に有意な関連性が存在することを示しています。ただし、フィッシャーの正確性検定は一般的にχ²検定よりも保守的な結果を提供する傾向があります。これはフィッシャーの正確性検定が小さなサンプルサイズや各セルの期待度数が少ない場合に適しているためです。一方、サンプルサイズや期待度数が大きい場合は、χ²検定がより適していると考えられます。これらの検定方法を選択する際には、データの特性や研究の目的を考慮することが重要です。
 
 # 6. マクネマー検定（対応のある二項的なデータの分析）
 
@@ -1001,7 +1006,7 @@ df_chi_sq <- data.frame(x = x, y = y)
 
 # プロット
 p <- ggplot(df_chi_sq, aes(x = x, y = y)) + 
-  geom_line(colour = "blue") +
+  geom_line(colour = "black") +
   labs(x = "McNemar's Chi-squared", y = "Density", title = "χ^2 Distribution with df = 1") +
   theme_minimal()
 
@@ -1010,7 +1015,7 @@ mcnemars_chi_squared <- 16
 
 # McNemar's Chi-squaredの値をプロットに追加
 p <- p + 
-  geom_vline(xintercept = mcnemars_chi_squared, linetype = "dashed", colour = "red") + 
+  geom_vline(xintercept = mcnemars_chi_squared, linetype = "dashed", colour = "black") + 
   annotate("text", x = mcnemars_chi_squared, y = 3, 
            label = paste("McNemar's Chi-squared =", mcnemars_chi_squared, "(α = 6.334e-05)"),
            vjust = 4, hjust = 0.4, colour = "black")
@@ -1020,10 +1025,10 @@ critical_value <- qchisq(0.95, df)
 
 # 有意水準をプロットに追加
 p <- p + 
-  geom_vline(xintercept = critical_value, linetype = "dashed", colour = "green") +
+  geom_vline(xintercept = critical_value, linetype = "dashed", colour = "red") +
   annotate("text", x = critical_value, y = 3, 
            label = paste("Critical Value =", round(critical_value, 2), "(α = 0.05)"), 
-           vjust = 4, hjust = 0.4, colour = "black")
+           vjust = 4, hjust = 0.4, colour = "red")
 
 # プロットを表示
 print(p)
@@ -1063,11 +1068,11 @@ ggplot(data = data_df, aes(x = Story, y = Count, fill = Choice)) +
 
 「イェーツの補正を用いたマクネマーの検定を使用して、ストーリーの結果が子どもたちの選択（「一緒に遊ぶ」または「別々に遊ぶ」）に影響を与えるかどうかを検討した。この検定では、χ²(1) = 16, p < .001という結果が得られ、これは選択が偶然に従って分布しているという帰無仮説を棄却するのに十分な証拠を示している。また、マクネマーのオッズ比から、「許す」ストーリーが「許さない」ストーリーに比べて、「一緒に遊ぶ」選択をする可能性が1.22倍高いという結果が示された（OR = 1.22）。」
 
-# 7. χ²検定の同質性（同質性の検定）
+# 7. 同質性の検定
 
 ## 理論
 
-χ²検定の同質性は、異なるグループ間でカテゴリカルデータの分布が同一であるかどうかを評価するための統計的手法です。この検定は、「2 x C」、「R x 2」、「R x C」の形式で適用され、χ²統計量を用いて、異なるグループ間で各カテゴリの分布が一致しているかを判断します。
+χ²同質性検定は、異なるグループ間でカテゴリカルデータの分布が同一であるかどうかを評価するための統計的手法です。この検定は、「2 x C」、「R x 2」、「R x C」の形式で適用され、χ²統計量を用いて、異なるグループ間で各カテゴリの分布が一致しているかを判断します。
 
 χ²値の計算式は次の通りです：
 
@@ -1080,7 +1085,7 @@ ggplot(data = data_df, aes(x = Story, y = Count, fill = Choice)) +
 
 をそれぞれ示しています。
 
-同質性のχ²検定では、効果量としてCramerのVが使用されます。これは統計的な結果の「大きさ」を評価する指標で、その計算式は以下のとおりです：
+χ²同質性検定では、効果量としてCramerのVが使用されます。これは統計的な結果の「大きさ」を評価する指標で、その計算式は以下のとおりです：
 
 \[V = \sqrt{\frac{\chi^2}{n(k-1)}}\]
 
@@ -1092,17 +1097,88 @@ ggplot(data = data_df, aes(x = Story, y = Count, fill = Choice)) +
 
 をそれぞれ示しています。
 
-「2 x C」形式は2つのカテゴリを持つ複数のグループに対して、「R x 2」形式は2つのカテゴリを持つ複数のグループに対して、「R x C」形式はR個のグループがC個のカテゴリに分けられる場合にそれぞれ使用されます。
+データの形式は３通りあり、
 
-## 実践:「2 x C」のχ²検定の同質性
+- 「2 x C」形式は2つのカテゴリを持つ複数のグループに対して
 
-「2 x C」形式のχ²検定は、2つのカテゴリがC個のグループに分けられる場合に用いられます。例えば、5歳と10歳の子供たちが3つの異なる学習スタイル（視覚的、聴覚的、運動性）にどのように分かれるかを調査する場合が考えられます。
+```{r, error=FALSE, echo=FALSE, message=FALSE}
+# 2つのグループがC個のカテゴリに分けられるデータの例
+data_2xC <- data.frame(
+  group = c(rep("Group 1", 3), rep("Group 2", 3)),
+  category = rep(c("Cat 1", "Cat 2", "Cat 3"), 2),
+  frequency = sample(1:10, 6, replace = TRUE)
+)
+
+print(data_2xC)
+```
+
+```{r, error=FALSE, echo=FALSE, message=FALSE}
+# 2 x C形式のデータセットのクロス集計表
+crossTab_2xC <- with(data_2xC, table(group, category))
+print(crossTab_2xC)
+```
+
+- 「R x 2」形式は2つのカテゴリを持つ複数のグループに対して
+
+```{r, error=FALSE, echo=FALSE, message=FALSE}
+# R個のグループが2つのカテゴリに分けられるデータの例
+data_Rx2 <- data.frame(
+  group = rep(c("Group 1", "Group 2", "Group 3"), 2),
+  category = rep(c("Cat 1", "Cat 2"), 3),
+  frequency = sample(1:10, 6, replace = TRUE)
+)
+
+print(data_Rx2)
+```
+
+```{r, error=FALSE, echo=FALSE, message=FALSE}
+# R x 2形式のデータセットのクロス集計表
+crossTab_Rx2 <- with(data_Rx2, table(group, category))
+print(crossTab_Rx2)
+```
+
+- 「R x C」形式はR個のグループがC個のカテゴリに分けられる場合
+
+```{r, error=FALSE, echo=FALSE, message=FALSE}
+# R個のグループがC個のカテゴリに分けられるデータの例
+data_RxC <- data.frame(
+  group = rep(c("Group 1", "Group 2", "Group 3"), each = 3),
+  category = rep(c("Cat 1", "Cat 2", "Cat 3"), 3),
+  frequency = sample(1:10, 9, replace = TRUE)
+)
+
+print(data_RxC)
+```
+
+```{r, error=FALSE, echo=FALSE, message=FALSE}
+# R x C形式のデータセットのクロス集計表
+crossTab_RxC <- with(data_RxC, table(group, category))
+print(crossTab_RxC)
+```
+
+にそれぞれ使用されます。
+
+## 実践:「2 x C」のχ²同質性検
+
+「2 x C」形式のχ²同質性検定は、2つのカテゴリがC個のグループに分けられる場合に用いられます。
+
+### 例示の背景
+
+学習スタイルは年齢によって変化する可能性があります。本検定では、5歳と10歳の子供たちがどの程度異なる学習スタイルに分布しているかを調査します。
+
+### 仮説の設定
+
+帰無仮説：5歳と10歳の子供たちの間で学習スタイルの分布は同じである。
+
+対立仮説：5歳と10歳の子供たちの間で学習スタイルの分布は同じではない。
+
+### データの準備
 
 ```{r, error=TRUE, include=TRUE}
 # カテゴリとグループを生成
-age_group <- c(rep("5歳", 150), rep("10歳", 150))
-learning_style <- c(rep(c("視覚的", "聴覚的", "運動性"), length.out = 150),
-                    rep(c("視覚的", "聴覚的", "運動性"), length.out = 150))
+age_group <- c(rep("5 years old", 100), rep("10 years old", 100))
+learning_style <- c(rep("Visual", 50), rep("Auditory", 30), rep("Kinesthetic", 20),
+                    rep("Visual", 20), rep("Auditory", 30), rep("Kinesthetic", 50))
 
 # データフレームを作成
 data_2xC <- data.frame(age_group, learning_style)
@@ -1112,6 +1188,10 @@ cross_table <- table(data_2xC)
 cross_table
 ```
 
+### Rでの実行
+
+Rのchisq.test関数を使用してχ²検定を実行し、結果を得ます。
+
 ```{r, error=TRUE, include=TRUE}
 # χ²検定を実行
 result_2xC <- chisq.test(cross_table)
@@ -1120,17 +1200,130 @@ result_2xC <- chisq.test(cross_table)
 print(result_2xC)
 ```
 
-サンプルサイズが小さい場合は、Fisherの正確性検定を使用することで、より信頼性のある結果を得ることができます。
+CramerのVを計算します。
+
+```{r, error=TRUE, include=TRUE}
+# Cramer's Vを計算
+n <- sum(cross_table)  # サンプルサイズ
+df <- min(dim(cross_table) - 1)  # 自由度
+V <- sqrt(result_2xC$statistic / (n * df))
+print(V)
+```
+
+```{r, error=TRUE, include=TRUE}
+# 必要なライブラリの読み込み
+library(ggplot2)
+
+# パラメータ設定
+df <- 2  # 自由度
+x <- seq(0, 30, length.out = 1000)  # xの範囲を0から30に広げます
+y <- dchisq(x, df)
+
+# データフレーム作成
+df_chi_sq <- data.frame(x = x, y = y)
+
+# χ²分布のプロット
+p <- ggplot(df_chi_sq, aes(x = x, y = y)) + 
+  geom_line(color = "black") +
+  labs(title = "χ² distribution", x = "Value", y = "Density") +
+  theme_minimal()
+
+# テスト統計量の位置を表示
+test_statistic <- 25.714  # 実際のテスト統計量
+p_val <- 2.607e-06  # 実際のp値
+p <- p +
+  geom_vline(xintercept = test_statistic, linetype = "dashed", colour = "black") +
+  annotate("text", x = test_statistic, y = max(df_chi_sq$y) * 0.2, 
+           label = paste("χ² =", round(test_statistic, 3), "(p =", formatC(p_val, format = "e", digits = 3), ")"), 
+           colour = "black", hjust = 0.5)
+
+# 有意水準を表示
+critical_value <- qchisq(0.95, df)  # 有意水準 0.05
+p <- p +
+  geom_vline(xintercept = critical_value, linetype = "dashed", colour = "red") +
+  annotate("text", x = critical_value, y = max(df_chi_sq$y) * 0.2, 
+           label = paste("Critical Value =", round(critical_value, 2), "(α = 0.05)"), 
+           colour = "red", hjust = 0.5)
+
+# プロットの表示
+print(p)
+```
+
+### 前提条件の検証
+
+バープロットを作成します。
+
+```{r, error=TRUE, include=TRUE}
+# バープロット
+barplot(cross_table, beside = TRUE, col = c("blue", "red"), 
+        legend = rownames(cross_table))
+```
+
+### 結果の解釈
+
+χ²統計量が25.714であり、p値が2.607e-06であること、そして効果量（X-squared）が0.3585686であることから、以下の結論が導き出されます。
+
+χ²統計量が25.714という結果は、観測されたカテゴリ（学習スタイル）の分布が期待される分布（年齢別の学習スタイルの分布）と有意に異なることを示しています。つまり、5歳と10歳の子どもたちの学習スタイルの選択には違いがあるということです。
+
+さらに、p値が2.607e-06という非常に低い値は、帰無仮説（5歳と10歳の子どもたちの学習スタイルの分布は同じであるという仮説）を棄却するための強力な証拠を示しています。つまり、このデータからは、年齢が学習スタイルの選好に影響を及ぼすという証拠が強く示されています。
+
+また、効果量であるX-squaredが0.3585686という結果は、年齢と学習スタイルの間に中程度の関連性があることを示しています。これは、年齢が学習スタイルの選好に中程度の影響を及ぼすという関連性がこのデータから見つかったということです。
+
+### 結果の報告
+
+「5歳と10歳の2つの年齢群が視覚的、聴覚的、運動的の3つの学習スタイルにどのように分布するかを調査するため、「2 x C」のχ²同質性検定を実施した。その結果、χ²(2) = 25.714, p < .001となり、5歳と10歳の子供たちの学習スタイルの分布が同一であるという帰無仮説は棄却された。効果量としてのCramerのVは.359であり、年齢群と学習スタイルとの間には中程度の関連性があることが示唆された。これらの結果から、5歳と10歳の子供たちの学習スタイルの選択には有意な違いが存在すると結論付けられる。」
+
+### フィッシャーの正確性検定（サンプルサイズが小さい場合）
+
+サンプルサイズが小さい場合や各セルの期待度数が5未満の場合は、χ²検定よりもフィッシャーの正確性検定の使用が推奨されます。フィッシャーの正確性検定は、特に2x2の分割表で使用され、その場合の結果は一般的により信頼性が高いとされています。
+
+#### データの準備
+
+この検定を行うためには、2つのカテゴリー変数を持つデータセットが必要です。以下のコードは、5歳と10歳の子供たちが視覚的か聴覚的な学習スタイルをどの程度選択するかのデータを生成します。
+
+```{r, error=TRUE, include=TRUE}
+# カテゴリとグループを生成
+age_group_fisher <- c(rep("5 years old", 20), rep("10 years old", 20))
+learning_style_fisher <- c(rep("Visual", 10), rep("Auditory", 10),
+                    rep("Visual", 15), rep("Auditory", 5))
+
+# データフレームを作成
+data_2x2_fisher <- data.frame(age_group_fisher, learning_style_fisher)
+
+# クロス集計表を作成
+cross_table_fisher <- table(data_2x2_fisher)
+cross_table_fisher
+```
+
+#### Rでの実行
+
+フィッシャーの直接確率検定はfisher.test() 関数を使用して計算します。
 
 ```{r, error=TRUE, include=TRUE}
 # Fisherの正確性検定を実行
-result_fisher <- fisher.test(cross_table)
+result_fisher <- fisher.test(cross_table_fisher)
 
 # 結果を出力
 print(result_fisher)
 ```
 
-## 実践:「R x 2」のχ²検定の同質性
+#### 結果の解釈
+
+フィッシャーの正確性検定の結果から、5歳と10歳の年齢群の間で視覚的学習と聴覚的学習の選択に有意な違いは認められませんでした。p値が0.1908となったことから、帰無仮説（二つの年齢群間で視覚的学習と聴覚的学習の選択に違いはない）が支持されました。
+
+また、オッズ比は0.3429692で、その95%信頼区間は0.06896679から1.51195380となりました。これは10歳の子供たちが視覚的学習を選択する確率が、5歳の子供たちと比較して約0.34倍であることを示しています。しかし、95%信頼区間が1を含むため、この差が統計的に有意であるとは言えません。
+
+#### 結果の報告
+
+「フィッシャーの正確性検定を用いて、5歳と10歳の子供たちが視覚的または聴覚的な学習スタイルを選択する傾向に差があるかを検定した。その結果、二つの年齢群間で視覚的と聴覚的学習の選択に有意な違いは認められなかった、p = .19。また、求められたオッズ比は0.34で、これは10歳の子供たちが視覚的学習を選択する確率が、5歳の子供たちと比較して約0.34倍であることを示している。しかしながら、その95%信頼区間が0.07から1.51で1を含んでいるため、この差が統計的に有意であるとは言えない。」
+
+#### χ²検定との比較
+
+フィッシャーの正確性検定は、サンプルサイズが小さい、または各セルの期待度数が5以下の場合に、χ²検定よりも優れた選択となります。χ²検定は大きなサンプルサイズや各セルの期待度数が十分に大きい場合に有効ですが、それらの条件が満たされない場合には、統計的検出力が低下するか、誤検出のリスクが増えます。
+
+この例のデータセットでは、各セルの観測度数が5を超えているため、χ²検定でも適切な結果が得られる可能性があります。しかし、フィッシャーの正確性検定を使用することで、サンプルサイズが小さい、または期待度数が低いセルの影響を排除できます。そのため、このデータセットではフィッシャーの正確性検定がχ²検定よりも適していると言えます。
+
+## 実践:「R x 2」のχ²同質性検
 
 「R x 2」形式のχ²検定は、R個のグループが2つのカテゴリに分けられる場合に使用されます。例えば、一親家庭、両親家庭、祖父母と同居の3つの家庭環境の子供たちが、学業成績が平均以上か平均未満かでどのように分かれるかを調査する場合などです。
 
@@ -1155,7 +1348,7 @@ result_Rx2 <- chisq.test(cross_table)
 print(result_Rx2)
 ```
 
-## 実践:「R x C」のχ²検定の同質性
+## 実践:「R x C」のχ²同質性検
 
 R x C」形式のχ²検定は、R個のグループがC個のカテゴリに分けられる場合に使用されます。これは、より複雑なデータセットを分析する際に利用されます。たとえば、異なる年齢層（5歳、10歳、15歳）の子供たちが3つの異なる学習スタイル（視覚的、聴覚的、運動性）にどのように分かれるかを調査する場合などです。
 
