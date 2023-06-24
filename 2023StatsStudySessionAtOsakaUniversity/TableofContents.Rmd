@@ -29,12 +29,12 @@ header-includes:
 #### 2023/06/02 RStudioの基礎 by 田辺和奏
 
 - [スライド](https://www.dropbox.com/s/931jp66tvosmxha/20230602_RStudioBasics_Tanabe.pptx?dl=0)
-- [Rコード]()
+- [Rコード](https://raw.githubusercontent.com/atsushikanayama/statistics/main/2023StatsStudySessionAtOsakaUniversity/2020230602_RStudioBasics_Tanabe.html)
 
 #### 2023/06/09 dplyrを使った分析前の準備 by 田口恵也
 
 - [スライド](https://www.dropbox.com/s/aulg3ts5a8132ps/20230609_UsingDplyr_Taguchi.pptx?dl=0)
-- [Rコード]()
+- [Rコード](https://raw.githubusercontent.com/atsushikanayama/statistics/main/2023StatsStudySessionAtOsakaUniversity/2020230609_UsingDplyr_Taguchi.html)
 
 #### 2023/06/16 χ2検定 by 戸田梨鈴
 
