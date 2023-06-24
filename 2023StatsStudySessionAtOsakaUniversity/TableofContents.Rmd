@@ -38,12 +38,12 @@ header-includes:
 
 #### 2023/06/16 χ2検定 by 戸田梨鈴
 
-- [スライド](https://www.dropbox.com/s/hagtd94paot9nil/20230616_ChiSquareTest_Toda.pptx?dl=0)
-- [Rコード](https://raw.githubusercontent.com/atsushikanayama/statistics/main/2023StatsStudySessionAtOsakaUniversity/20230616_ChiSquareTest_Toda/20230616_ChiSquareTest_Toda.html)
+- [スライド](https://www.dropbox.com/s/hagtd94paot9nil/20230616_ChiSquareTest_RToda.pptx?dl=0)
+- [Rコード](https://raw.githubusercontent.com/atsushikanayama/statistics/main/2023StatsStudySessionAtOsakaUniversity/20230616_ChiSquareTest_RToda.html)
 
 #### 2023/06/23 t検定 by 坂口さん・大西さん
 
-- [ドキュメント](https://www.dropbox.com/s/obi8qtkzovqf5gl/T%E6%A4%9C%E5%AE%9A.docx?dl=0)
+- [ドキュメント](https://www.dropbox.com/s/obi8qtkzovqf5gl/20230623_T%E6%A4%9C%E5%AE%9A.docx?dl=0)
 - [Rコード]()
 
 ### 後期
