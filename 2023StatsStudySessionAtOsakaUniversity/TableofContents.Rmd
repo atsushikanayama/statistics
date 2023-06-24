@@ -1,0 +1,51 @@
+---
+title: "2023 統計勉強会 @ 大阪大学"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
+  ioslides_presentation:
+    toc: true
+  word_document:
+    toc: true
+  beamer_presentation:
+    toc: true
+    latex_engine: xelatex
+  pdf_document:
+    toc: true
+    latex_engine: xelatex
+header-includes:
+  - \usepackage{xeCJK}
+  - \setCJKmainfont{Hiragino Mincho Pro}
+---
+
+### 前期
+
+#### 2023/05/12 文献管理の仕方とツールの紹介 by 田口恵也
+
+- [スライド](https://www.dropbox.com/s/9bs6bkgytacsknl/20230512_IntroductionToLiteratureManagementTechniquesAndTools_Taguchi.pptx?dl=0)
+
+#### 2023/06/02 RStudioの基礎 by 田辺和奏
+
+- [スライド](https://www.dropbox.com/s/931jp66tvosmxha/20230602_RStudioBasics_Tanabe.pptx?dl=0)
+- [Rコード](https://raw.githubusercontent.com/atsushikanayama/statistics/main/2023StatsStudySessionAtOsakaUniversity/20230602_RStudioBasics_Tanabe.html)
+
+#### 2023/06/09 dplyrを使った分析前の準備 by 田口恵也
+
+- [スライド](https://www.dropbox.com/s/aulg3ts5a8132ps/20230609_UsingDplyr_Taguchi.pptx?dl=0)
+- [Rコード](https://raw.githubusercontent.com/atsushikanayama/statistics/main/2023StatsStudySessionAtOsakaUniversity/20230609_UsingDplyr_Taguchi.html)
+
+#### 2023/06/16 χ2検定 by 戸田梨鈴
+
+- [スライド](https://www.dropbox.com/s/hagtd94paot9nil/20230616_ChiSquareTest_Toda.pptx?dl=0)
+- [Rコード](https://raw.githubusercontent.com/atsushikanayama/statistics/main/2023StatsStudySessionAtOsakaUniversity/20230616_ChiSquareTest_Toda/20230616_ChiSquareTest_Toda.html)
+
+#### 2023/06/23 t検定 by 坂口さん・大西さん
+
+- [ドキュメント](https://www.dropbox.com/s/obi8qtkzovqf5gl/T%E6%A4%9C%E5%AE%9A.docx?dl=0)
+- [Rコード]()
+
+### 後期
+
+
