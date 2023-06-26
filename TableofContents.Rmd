@@ -1,0 +1,156 @@
+---
+title: "Study notes"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
+  ioslides_presentation:
+    toc: true
+  word_document:
+    toc: true
+  beamer_presentation:
+    toc: true
+    latex_engine: xelatex
+  pdf_document:
+    toc: true
+    latex_engine: xelatex
+header-includes:
+  - \usepackage{xeCJK}
+  - \setCJKmainfont{Hiragino Mincho Pro}
+---
+
+#### 1. Inferential and Descriptive Statistics
+- Hypothesis Testing and P-values
+- Confidence Intervals
+- Errors and Power
+- Measures of Central Tendency
+- Measures of Variability
+- Measures of Shape
+- Graphical Summaries
+
+#### 2. Data Collection and Design of Experiments
+- Sampling Methods
+- Bias and Error
+- Principles of Experimental Design
+- Design of Surveys and Questionnaires
+
+#### 3. Understanding Distributions and Tests
+- Normal Distribution and Central Limit Theorem
+- Z-Tests and Non-parametric Equivalent (Wilcoxon Signed-Rank Test)
+
+#### 4. T-Tests and Related Non-parametric Tests
+- One-sample T-Test and Non-parametric Equivalent (Wilcoxon Signed-Rank Test)
+- Independent-samples T-Test and Non-parametric Equivalent (Mann-Whitney U test)
+- Paired-samples T-Test and Non-parametric Equivalent (Wilcoxon Signed-Rank Test)
+
+#### 5. Chi-Square Tests
+- Chi-square Goodness of Fit
+- Chi-square Test for Independence
+- Chi-square Test for Homogeneity
+
+#### 6. Analysis Using F-Statistic
+- Analysis of Variance (ANOVA) and Non-parametric Equivalent (Kruskal-Wallis Test)
+- Factorial and Repeated Measures ANOVA
+- Analysis of Covariance (ANCOVA)
+- Multivariate Analysis of Variance (MANOVA) and Covariance (MANCOVA)
+
+#### 7. Regression and Correlation Analysis
+- Simple and Multiple Linear Regression
+- Polynomial and Ridge Regression
+- Logistic Regression
+- Correlation Analysis (Pearson's, Spearman's, Point-biserial)
+
+#### 8. Generalized Models
+- Generalized Linear Models (GLM) and Mixed Models (GLMM)
+- Generalized Additive Models (GAMs)
+- Concept and Assumptions
+- Applications and Interpretation
+- Multilevel Modeling
+
+#### 9. Multivariate Analysis
+- Exploratory Factor Analysis
+- Confirmatory Factor Analysis
+- Latent Profile Analysis
+- Path Analysis
+- Structural Equation Modeling
+- Multidimensional Scaling
+- Cluster Analysis
+
+#### 10. Time Series Analysis
+- Autoregressive Models
+- Moving Average Models
+- ARIMA Models
+- Stationarity, Differencing, and Autocorrelation
+
+#### 11. Longitudinal Data and Growth Models
+- Panel Data Analysis
+- Intensive Longitudinal Methods
+- Latent Growth Curve Modeling
+- Survival Analysis
+
+#### 12. Causal Inference
+- Experimental Design
+- Quasi-experimental Design
+- Natural Experiments
+- Instrumental Variable Techniques
+- Matching and Weighting for Causal Inference
+- Propensity Score Analysis
+- Difference in Differences
+- Interrupted Time Series
+- Directed Acyclic Graphs for Causal Inference
+- Causal Mediation Analysis
+- Sensitivity Analysis
+- Counterfactual Frameworks
+- Structural Causal Models
+- G-Estimation of Structural Nested Models
+
+#### 13. Handling Special Data Conditions
+- Handling Missing Data
+- Outlier Detection and Treatment
+- Non-normal Data
+- Handling Imbalanced Data
+- Bootstrapping Methods
+
+#### 14. Scale Development and Psychometrics
+- Classical Test Theory
+- Item Analysis
+- Reliability Analysis
+- Validity Analysis
+- Scale Construction and Development
+
+#### 15. Item Response Theory
+- Rasch Modeling
+- 2PL and 3PL models
+
+#### 16. Meta-Analysis
+- Fixed-Effect Model
+- Random-Effects Model
+- Meta-Regression
+- Meta-analytic Structural Equation Modeling (MASEM)
+- Publication Bias
+- Interpretation and Presentation of Results
+
+#### 17. Cross-Validation and Model Selection Techniques
+- Model Selection Techniques (AIC, BIC, Adjusted R-square)
+
+#### 18. Network Analysis
+- Social Network Analysis
+- Centrality Measures
+- Community Detection
+- Network Dynamics
+
+#### 19. Handling Large Data Sets (Big Data)
+- Data Reduction Techniques
+- Distributed Computing (Hadoop, Spark)
+- Data Cleaning and Transformation Techniques
+- Machine Learning at Scale
+
+#### 20 Bayesian Statistics
+- Bayesian principles and Bayes' Theorem
+- Bayesian Inference
+- Bayesian Models
+- Bayesian Hierarchical Models
+- Bayesian Networks
+- Machine Learning in Bayesian Statistics
+
