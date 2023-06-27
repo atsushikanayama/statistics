@@ -1,5 +1,5 @@
 ---
-title: "Study notes"
+title: "Study Notes in Statistics and Data AnalysisYo"
 output: 
   html_document:
     toc: true
@@ -20,7 +20,7 @@ header-includes:
   - \setCJKmainfont{Hiragino Mincho Pro}
 ---
 
-#### 1. Inferential and Descriptive Statistics
+#### Fundamentals of Statistics
 - Hypothesis Testing and P-values
 - Confidence Intervals
 - Errors and Power
@@ -29,46 +29,54 @@ header-includes:
 - Measures of Shape
 - Graphical Summaries
 
-#### 2. Data Collection and Design of Experiments
+#### Data Collection and Design of Experiments
 - Sampling Methods
 - Bias and Error
 - Principles of Experimental Design
 - Design of Surveys and Questionnaires
 
-#### 3. Understanding Distributions and Tests
+#### Understanding Distributions and Tests
 - Normal Distribution and Central Limit Theorem
-- Z-Tests and Non-parametric Equivalent (Wilcoxon Signed-Rank Test)
+- Introdcuction to Z-Tests and Non-parametric Tests
 
-#### 4. T-Tests and Related Non-parametric Tests
+#### T-Tests and Related Non-parametric Tests
 - One-sample T-Test and Non-parametric Equivalent (Wilcoxon Signed-Rank Test)
 - Independent-samples T-Test and Non-parametric Equivalent (Mann-Whitney U test)
 - Paired-samples T-Test and Non-parametric Equivalent (Wilcoxon Signed-Rank Test)
-
-#### 5. Chi-Square Tests
+   
+#### Chi-Square Tests
 - Chi-square Goodness of Fit
 - Chi-square Test for Independence
 - Chi-square Test for Homogeneity
 
-#### 6. Analysis Using F-Statistic
+#### Analysis Using F-Statistic
 - Analysis of Variance (ANOVA) and Non-parametric Equivalent (Kruskal-Wallis Test)
 - Factorial and Repeated Measures ANOVA
 - Analysis of Covariance (ANCOVA)
 - Multivariate Analysis of Variance (MANOVA) and Covariance (MANCOVA)
 
-#### 7. Regression and Correlation Analysis
+#### Regression and Correlation Analysis
 - Simple and Multiple Linear Regression
 - Polynomial and Ridge Regression
 - Logistic Regression
 - Correlation Analysis (Pearson's, Spearman's, Point-biserial)
 
-#### 8. Generalized Models
-- Generalized Linear Models (GLM) and Mixed Models (GLMM)
+#### Generalized Models
+- Generalized Linear Models (GLM)
+- Generalized Linear Mixed Models (GLMM)
+- Logistic Regression
+- Poisson Regression
+- Negative Binomial Regression
+- Quasi-Poisson Regression
+- Quasi-Binomial Regression
+- Zero-Inflated Models (ZIP and ZINB)
+- Hurdle Models
+- Non-linear Models
 - Generalized Additive Models (GAMs)
-- Concept and Assumptions
-- Applications and Interpretation
+- Quantile Regression
 - Multilevel Modeling
 
-#### 9. Multivariate Analysis
+#### Multivariate Analysis
 - Exploratory Factor Analysis
 - Confirmatory Factor Analysis
 - Latent Profile Analysis
@@ -77,19 +85,32 @@ header-includes:
 - Multidimensional Scaling
 - Cluster Analysis
 
-#### 10. Time Series Analysis
+#### Specialized Analysis Techniques
+- Time Series Analysis
+- Stationarity, Differencing, and Autocorrelation
+- Seasonality and Cyclical Trends
 - Autoregressive Models
 - Moving Average Models
 - ARIMA Models
-- Stationarity, Differencing, and Autocorrelation
+- SARIMA Models (Seasonal ARIMA)
+- Forecasting Techniques
+- Vector Autoregression (VAR)
+- State Space Models and the Kalman Filter
+- Multivariate Time Series Analysis
+- ARCH/GARCH Models
 
-#### 11. Longitudinal Data and Growth Models
+#### Longitudinal Data and Growth Models
+- Basics of Longitudinal Data Analysis
 - Panel Data Analysis
+- Cross-Lagged Panel Models (CLPM)
 - Intensive Longitudinal Methods
-- Latent Growth Curve Modeling
+- Latent Growth Curve Modeling (LGCM)
 - Survival Analysis
+- Multilevel Models for Longitudinal Data
+- Structural Equation Modeling for Longitudinal Data
+- Missing Data in Longitudinal Studies
 
-#### 12. Causal Inference
+#### Causal Inference
 - Experimental Design
 - Quasi-experimental Design
 - Natural Experiments
@@ -105,52 +126,70 @@ header-includes:
 - Structural Causal Models
 - G-Estimation of Structural Nested Models
 
-#### 13. Handling Special Data Conditions
-- Handling Missing Data
-- Outlier Detection and Treatment
-- Non-normal Data
-- Handling Imbalanced Data
-- Bootstrapping Methods
+#### Handling Special Data Conditions
 
-#### 14. Scale Development and Psychometrics
-- Classical Test Theory
+- Managing Missing Data
+    + Understanding the nature of missing data
+    + Popular methods for handling missing data:
+- Handling Outliers
+    + Detecting outliers: visual methods (box plots, scatter plots), statistical methods (z-score, IQR method)
+    + Techniques for managing outliers
+- Strategies for Non-Normal Data
+    + Understanding the concept of skewness and kurtosis
+    + Applying transformations to deal with non-normal data
+- Dealing with Imbalanced Data
+    + Grasping the issues associated with imbalanced data
+    + Implementing resampling methods: oversampling the minority class, undersampling the majority class
+    + Applying advanced techniques: Synthetic Minority Over-sampling Technique (SMOTE), Adaptive Synthetic (ADASYN) sampling method
+    + Utilizing cost-sensitive learning
+    
+- Advanced Data Techniques
+    + Bootstrapping Methods
+    + Cross-validation techniques
+    + Ensemble methods
+
+
+#### Scale Development and Psychometrics
+
+- Classical Test Theory (CTT)
 - Item Analysis
 - Reliability Analysis
 - Validity Analysis
 - Scale Construction and Development
+- Item Response Theory (IRT)
 
-#### 15. Item Response Theory
-- Rasch Modeling
-- 2PL and 3PL models
-
-#### 16. Meta-Analysis
-- Fixed-Effect Model
-- Random-Effects Model
+#### Meta-Analysis
+- Understanding the concept of meta-analysis
+- Fixed-Effect and Random-Effects Models
+- Heterogeneity in meta-analysis
 - Meta-Regression
 - Meta-analytic Structural Equation Modeling (MASEM)
-- Publication Bias
+- Assessing Publication Bias
 - Interpretation and Presentation of Results
 
-#### 17. Cross-Validation and Model Selection Techniques
-- Model Selection Techniques (AIC, BIC, Adjusted R-square)
+#### Cross-Validation and Model Selection Techniques
+- Understanding overfitting and the need for model validation
+- Holdout validation, k-fold cross-validation, leave-one-out cross-validation
+- Model Selection Techniques: Akaike Information Criterion (AIC), Bayesian Information Criterion (BIC), Adjusted R-square
+- Regularization techniques: Ridge, Lasso, Elastic Net
 
-#### 18. Network Analysis
+#### Network Analysis
+- Understanding the concept of network analysis
 - Social Network Analysis
 - Centrality Measures
 - Community Detection
 - Network Dynamics
 
-#### 19. Handling Large Data Sets (Big Data)
+#### Handling Large Data Sets (Big Data)
 - Data Reduction Techniques
-- Distributed Computing (Hadoop, Spark)
+- Distributed Computing frameworks
 - Data Cleaning and Transformation Techniques
 - Machine Learning at Scale
 
-#### 20 Bayesian Statistics
-- Bayesian principles and Bayes' Theorem
+#### Bayesian Statistics
+- Understanding Bayesian principles and Bayes' Theorem
 - Bayesian Inference
-- Bayesian Models
+- Common Bayesian Models
 - Bayesian Hierarchical Models
 - Bayesian Networks
 - Machine Learning in Bayesian Statistics
-
