@@ -127,30 +127,17 @@ header-includes:
 - G-Estimation of Structural Nested Models
 
 #### Handling Special Data Conditions
-
-- Managing Missing Data
-    + Understanding the nature of missing data
-    + Popular methods for handling missing data:
-- Handling Outliers
-    + Detecting outliers: visual methods (box plots, scatter plots), statistical methods (z-score, IQR method)
-    + Techniques for managing outliers
-- Strategies for Non-Normal Data
-    + Understanding the concept of skewness and kurtosis
-    + Applying transformations to deal with non-normal data
-- Dealing with Imbalanced Data
-    + Grasping the issues associated with imbalanced data
-    + Implementing resampling methods: oversampling the minority class, undersampling the majority class
-    + Applying advanced techniques: Synthetic Minority Over-sampling Technique (SMOTE), Adaptive Synthetic (ADASYN) sampling method
-    + Utilizing cost-sensitive learning
-    
-- Advanced Data Techniques
+- Missing Data
+- Outliers
+- Non-Normal Data
+- Imbalanced Data
+- Advanced Techniques
     + Bootstrapping Methods
     + Cross-validation techniques
     + Ensemble methods
 
 
 #### Scale Development and Psychometrics
-
 - Classical Test Theory (CTT)
 - Item Analysis
 - Reliability Analysis
